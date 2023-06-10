@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import style from './index.module.css';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { mapToBE } from '@/globalFunction/mapToBE';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +21,7 @@ export default function Home() {
   }
   const handleLoginBtnClick = () => {
     // const url = 'http://localhost:8080/api/v1/hq/login';
-    const url = '/api/v1/hq/login';
+    const url = mapToBE('/api/v1/hq/login');
     const data = {
       "adminNumber": adminNumber,
       "password": password
@@ -28,11 +29,14 @@ export default function Home() {
     axios(
       url,
       {
+        method: 'post',
         data: data
       }
     )
     .then((res) => {
       console.log("res: ", res);
+      console.log("res.data.accessToken: ", res.data.accessToken);
+      console.log("res.data.refreshToken: ", res.data.refreshToken);
       if (res.status == 200) {
         alert("로그인에 성공했습니다.");
         router.push('/hq-sales');
