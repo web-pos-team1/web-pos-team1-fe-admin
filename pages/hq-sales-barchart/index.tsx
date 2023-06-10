@@ -7,7 +7,7 @@ export default function HqSalesBarChart() {
 
         var ctx = document.getElementById('salesBarChartWithPeriod').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: ["05.12", "05.13", "05.14", "05.15", "05.16", "05.17"],
                 datasets: [{
@@ -17,7 +17,29 @@ export default function HqSalesBarChart() {
                     backgroundColor: "rgb(109, 253, 181,0.5)",
                     borderWidth: 2
                 }]
+
             },
+            options: {
+                responsive: true,
+                
+                hover: {
+                    mode: 'label'
+                },
+                scales: {
+                    xAxes: [{
+                            display: true,
+                        }],
+                    yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 1000000,
+                                stepValue: 1000000,
+                                max: 10000000
+                            }
+                        }]
+                }
+            }
         });
     }, [])
     return (
