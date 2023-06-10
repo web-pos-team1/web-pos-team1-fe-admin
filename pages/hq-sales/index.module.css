@@ -1,0 +1,47 @@
+.chartContainer {
+    display: flex;
+    height: 250px;
+}
+/* .menuWrapper {
+    display: flex;
+    text-decoration: none;
+    padding: 2px;
+    list-style: none;
+}
+.menu {
+    text-decoration: none;
+    padding-right: 5px;
+    border: 1px solid;
+} */
+.orderListHead {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid;
+    font-size: 12px;
+}
+.orderListHead th {
+    padding: 12px 0;
+    padding-right: 7px;
+}
+.orderListHead td {
+    padding: 12px 0;
+}
+.orderListBody {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.sidebarRight {
+    width: 900px;
+    padding-left: 20px;
+    height: 100%;
+}
+.pageWrapper {
+    display: flex;
+    height: 100%;
+}
+
+.settlementDataListWrapper {
+    padding-top: 50px;
+}
