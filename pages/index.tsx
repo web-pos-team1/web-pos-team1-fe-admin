@@ -91,8 +91,8 @@ const Home: NextPageWithLayout = () => {
               />
           </div>
           
-          <div className={style.loginBtn}>
-            <div className={style.btn} onClick={handleLoginBtnClick}>로그인</div>
+          <div onClick={handleLoginBtnClick} className={style.loginBtn}>
+            <div className={style.btn}>로그인</div>
           </div>
 
         </div>

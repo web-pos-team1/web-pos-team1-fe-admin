@@ -45,6 +45,7 @@
     box-sizing: border-box;
     padding-left: 9px;
     font-size: 22px;
+    color: #4C304F;
 }
 
 .passwordWrapper {
@@ -62,6 +63,7 @@
     box-sizing: border-box;
     padding-left: 9px;
     font-size: 22px;
+    color: #4C304F;
 }
 
 .loginBtn {
