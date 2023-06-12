@@ -26,6 +26,7 @@ const Home: NextPageWithLayout = () => {
   };
 
   const handleLoginBtnClick = () => {
+    // const url = 'http://localhost:8080/api/v1/hq/login';
     const url = mapToBE('/api/v1/hq/login');
     const data = {
       adminNumber,
