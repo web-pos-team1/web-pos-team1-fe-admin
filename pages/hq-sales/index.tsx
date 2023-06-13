@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from 'chart.js';
-import styles from './index.module.css';
+import styles from './hqSales.module.css';
 import axios from 'axios';
-import HqSalesBarChart from "../hq-sales-barchart";
+import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
 
