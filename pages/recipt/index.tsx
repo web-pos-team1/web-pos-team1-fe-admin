@@ -1,25 +1,74 @@
 import React, { useEffect, useState } from "react";
 import styles from './recipt.module.css';
 import axios from "axios";
+import JsBarcode from "jsbarcode";
 export default function Recipt() {
-    const [mUid, setMUid] = useState<string>('202306011011410202');
-    
-    useEffect(() => {
-        const url = `http://localhost:8080/api/v1/manager/orders-detail/${mUid}`;
-        axios.get(url)
-        .then((res) => {
-            console.log("res: ", res);
-        })
-        .catch((err) => {
-            console.log("err: ", err);
-        })
-    }, [])
+  const [mUid, setMUid] = useState<string>('202306131936270201');
+  const [orderDate, setOrderDate] = useState<string>('');
+  const [orderSerialNumber, setOrderSerialNumber] = useState<string>('');
+  const [productList, setProductList] = useState<any[]>([]);
+  const [finalTotalPrice, setFinalTotalPrice] = useState<number>(0);
+  const [userName, setUserName] = useState<string>('');
+  const [userPoint, setUserPoint] = useState<number>(0);
+  const [productPrice, setProductPrice] = useState<number>(0);
+  const [vat, setVat] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+
+  // 
+  const [cardName, setCardName] = useState<string>('');
+  const [cardNumber, setCardNumber] = useState<string>('');
+
+
+  useEffect(() => {
+    const url = `http://localhost:8080/api/v1/manager/orders-detail?merchantUid=${mUid}`;
+    axios.get(url)
+      .then((res) => {
+        const { orderDate,
+           orderSerialNumber,
+           orderDetailProductResponseDTOList,
+           userName,
+           userPoint,
+           productPrice,
+           vat,
+           finalTotalPrice,
+           totalPrice,
+           cardName,
+           cardNumber
+           } = res.data;
+        console.log("[before]orderDate: ", orderDate);
+        // 2023-06-13T10:36:54.415664
+        const orderDateList = orderDate.split('T');
+        console.log("[mid]orderDate: ", orderDateList);
+        const timeList = orderDateList[1].split('.')[0].split(':');
+        const hhMM = timeList[0] + ":" + timeList[1]; 
+        setOrderDate(orderDateList[0] + " " + hhMM);
+        setOrderSerialNumber(orderSerialNumber);
+        setProductList(orderDetailProductResponseDTOList);
+        setUserName(userName);
+        setUserPoint(userPoint);
+        setProductPrice(productPrice);
+        setVat(vat);
+        setFinalTotalPrice(finalTotalPrice);
+        setTotalPrice(totalPrice);
+        setCardName(cardName);
+        setCardNumber(cardNumber);
+        console.log("res: ", res);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+      JsBarcode("#barcode", mUid, {
+        width: 300,
+        height: 60
+      });
+  }, []);
     return (
         <div className={styles.reciptWrapper}>
         <div className={styles.reciptContainer}>
           <div className={styles.header}>
             <h1 className={styles.title}>SHINSEGAE</h1>
-            <div className={styles.barcode}>바코드 자리</div>
+            {/* <div className={styles.barcode}>바코드 자리</div> */}
+            <img className={styles.barcode} id="barcode"/>
             <div className={styles.mUid}>{mUid}</div>
             <div className={styles.branchInfo}>
                 <div className={styles.storeName}>(주)신세계 센텀시티점 &nbsp;</div>
@@ -31,8 +80,8 @@ export default function Recipt() {
                 <div className={styles.ceoName}>손영식</div>
             </div>
             <div className={styles.orderInfo}>
-                <div className={styles.orderDate}>구매: 2023-06-23 12:09</div>
-                <div className={styles.orderSerialNumber}>거래번호: 1820-6969</div>
+                <div className={styles.orderDate}>구매: {orderDate}</div>
+                <div className={styles.orderSerialNumber}>거래번호: {orderSerialNumber}</div>
             </div>
            
           </div>
@@ -40,35 +89,38 @@ export default function Recipt() {
             <thead>
               <tr>
                 <th>상품명</th>
+                <th>단가</th>
                 <th className={styles.qty}>수량</th>
                 <th className={styles.rightAligned}>금액</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>복숭아젤리</td>
-                <td className={styles.qty}>1</td>
-                <td>1,500</td>
-              </tr>
-              <tr>
-                <td>사과젤리</td>
-                <td className={styles.qty}>2</td>
-                <td>3,000</td>
-              </tr>
-              <tr>
+            {productList && productList.map((product, index) => (
+                <tr key={index}>
+                  <td>{product.productName}</td>
+                  <td>{product.productSalePrice}</td>
+                  <td className={styles.qty}>{product.cartQty}</td>
+                  <td>{product.productSalePrice * product.cartQty}</td>
+                </tr>
+              ))}
+               <tr>
                 <td className={styles.sum} colSpan={2}>합  계</td>
-                <td className={styles.sum}><span>4,500</span></td>
+                <td></td>
+                
+                <td className={styles.sum}><span>{totalPrice}</span></td>
               </tr>
             </tbody>
             <tfoot>
               
               <tr>
                 <td colSpan={2}>과세물품가액</td>
-                <td><span>4,050</span></td>
+                <td></td>
+                <td><span>{productPrice}</span></td>
               </tr>
               <tr className={styles.dashedLine}>
                 <td colSpan={2}>부가세</td>
-                <td><span>450</span></td>
+                <td></td>
+                <td><span>{vat}</span></td>
               </tr>
             </tfoot>
           </table>
@@ -77,11 +129,11 @@ export default function Recipt() {
             <tbody>
               <tr className={styles.finalTotalPrice}>
                 <td>카드결제액</td>
-                <td><span>4,500</span></td>
+                <td><span>{finalTotalPrice}</span></td>
               </tr>
               <tr className={styles.card}>
-                <td>국민</td>
-                <td><span>11111111****1111</span></td>
+                <td>{cardName}</td>
+                <td><span>{cardNumber}</span></td>
               </tr>
               <tr className={styles.cardInfo}>
                 <td>승인번호<span>3000000</span></td>
@@ -89,8 +141,9 @@ export default function Recipt() {
               </tr>
             </tbody>
           </table>
+
              <div className={styles.pointInfo}>
-                <span className={styles.userName}>홍*동</span>님의 포인트 현황입니다.
+                <span className={styles.userName}>{userName}</span>님의 포인트 현황입니다.
                 </div>
           <table className={styles.pointTable}>
             <tbody>
@@ -100,7 +153,7 @@ export default function Recipt() {
               </tr>
               <tr className={styles.userPoint}>
                 <td>누적(가용)포인트</td>
-                <td><span>196(195)</span></td>
+                <td><span>{userPoint}(195)</span></td>
               </tr>
               <tr className={styles.expirationPeriodInfo}>
                 <td>*신세계포인트 유효기간은 2년입니다.</td>
