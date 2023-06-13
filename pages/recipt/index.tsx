@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from './recipt.module.css';
 import axios from "axios";
 import JsBarcode from "jsbarcode";
+import { mapToBE } from "@/globalFunction/mapToBE";
 export default function Recipt() {
   const [mUid, setMUid] = useState<string>('202306131936270201');
   const [orderDate, setOrderDate] = useState<string>('');
@@ -20,7 +21,8 @@ export default function Recipt() {
 
 
   useEffect(() => {
-    const url = `http://localhost:8080/api/v1/manager/orders-detail?merchantUid=${mUid}`;
+    const url = mapToBE(`/api/v1/manager/orders-detail?merchantUid=${mUid}`);
+    // const url = `http://localhost:8080/api/v1/manager/orders-detail?merchantUid=${mUid}`;
     axios.get(url)
       .then((res) => {
         const { orderDate,
@@ -106,12 +108,10 @@ export default function Recipt() {
                <tr>
                 <td className={styles.sum} colSpan={2}>합  계</td>
                 <td></td>
-                
                 <td className={styles.sum}><span>{totalPrice}</span></td>
               </tr>
             </tbody>
             <tfoot>
-              
               <tr>
                 <td colSpan={2}>과세물품가액</td>
                 <td></td>
