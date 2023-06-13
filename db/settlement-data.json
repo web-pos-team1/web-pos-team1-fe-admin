@@ -1,0 +1,32 @@
+{
+    "salesBarChartLabelList": [
+        {
+            "orderSerialNumber": "2023051101010001",
+            "branchName": "강남점",
+            "orderDate": "2023.05.11",
+            "orderStatus": "성공",
+            "orderMethod": "카드",
+            "totalPrice": 80000,
+            "couponUsePrice": 10000,
+            "poinUsePrice": 700,
+            "finalTotalPrice": 69300,
+            "charge": 2217,
+            "totalOriginPrice": 67200,
+            "profit": -117
+        },
+        {
+            "orderSerialNumber": "2023051102010001",
+            "branchName": "경기점",
+            "orderDate": "2023.05.11",
+            "orderStatus": "성공",
+            "orderMethod": "카드",
+            "totalPrice": 60000,
+            "couponUsePrice": null,
+            "poinUsePrice": 1000,
+            "finalTotalPrice": 59000,
+            "charge": 1888,
+            "totalOriginPrice": 50400,
+            "profit": 6712
+        }
+    ]
+}

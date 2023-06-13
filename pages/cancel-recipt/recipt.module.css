@@ -1,0 +1,238 @@
+.reciptWrapper {
+    width: 360px;
+    height: 1000px;
+    background-color: white;
+    color: #3f3f3f
+    
+}
+
+.reciptContainer {
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    margin-bottom: 15px;  
+}
+
+.header .title {
+    padding-top: 35px;
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+
+}
+
+.header .cancel {
+  font-size: 15px;
+  text-align: end;
+}
+
+.header .barcode {
+    width: 300px;
+    height: 60px;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 12px;
+}
+
+.header .mUid {
+    margin-top: 5px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.header .storeName {
+    font-size: 13px ;
+}
+
+.header .storeAddress {
+    font-size: 13px;
+}
+.header .branchInfo {
+    display: flex;
+    font-size: 13px;
+
+}
+.header .componyInfo {
+    display: flex;
+    font-size: 13px;
+    
+}
+.header .orderInfo {
+    display: flex;
+    font-size: 12px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.header .cancelDate {
+    display: flex;
+    font-size: 12px;
+    justify-content: left;
+    align-items: center;
+    border-bottom: 2px solid #dbdbdb;
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+
+  .receiptTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+
+  .receiptTable th {
+    text-align: left;
+    font-size: 12px;
+    border: none;
+  }
+  .receiptTable tbody tr {
+    font-size: 12px;
+  }
+ 
+
+  .receiptTable tbody td:last-child {
+    text-align: right;
+    font-size: 12px;
+    border: none;
+}
+  .receiptTable tbody td {
+    padding: 2px 0;
+  }
+
+  .receiptTable tbody {
+    padding: 5px 0;
+  }
+  
+  .receiptTable .sum {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .receiptTable .sum span{
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+
+  .receiptTable thead th {
+    border-bottom: 2px solid #dbdbdb;
+    font-size: 15px;
+    margin-top: 10px;
+    padding: 5px;
+    justify-content: center;
+
+
+  }
+  .receiptTable .qty {
+    text-align: center;
+
+
+  }
+  .receiptTable thead td {
+    display: flex;
+    text-align: center;
+
+  }
+  .receiptTable .finalTotalPrice {
+    margin-top: 15px;
+  }
+
+  .receiptTable tfoot tr {
+    font-size: 12px;
+  }
+
+  .receiptTable tfoot .dashedLine {
+    border-bottom: 2px dashed #9f9f9f;
+    padding-bottom: 15px;  
+  }
+ 
+
+  .receiptTable tfoot td:last-child span {
+    float: right;
+  }
+  
+  .receiptTable th.rightAligned,
+  .receiptTable td.rightAligned {
+    text-align: right;
+  }
+
+  .cardTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .cardTable tbody{
+    border-bottom: 2px dashed #9f9f9f;
+  }
+  
+  .cardTable td {
+    padding: 2px 0;
+    text-align: left;
+    font-size: 12px;
+    border: none;
+  }
+
+  
+  .cardTable .card {
+    font-weight: bold;
+  }
+
+
+  .cardTable td:last-child span {
+    display: inline-block;
+    text-align: right;
+    width: 100%;
+  }
+
+  .pointInfo {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  .pointTable {
+    width: 100%;
+ 
+    border-collapse: collapse;
+  }
+
+
+  .pointTable td {
+    text-align: left;
+    font-size: 12px;
+    border: none;
+  }
+  .pointTable td:last-child span {
+    display: inline-block;
+    text-align: right;
+    width: 100%;
+  }
+
+.pointInfo {
+    display: flex;
+    text-align: left;
+  }
+
+  .pointTable .expirationPeriodInfo {
+    border-bottom: 2px dashed #9f9f9f;
+  }
+  .paymentsInfo {
+    padding-top: 5px;
+    text-align: left;
+    font-size: 12px;
+    border: none;
+  }
+
+  .pointTable td {
+    padding: 2px 0;
+  }
+
+

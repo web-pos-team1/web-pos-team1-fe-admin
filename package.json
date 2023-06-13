@@ -1,0 +1,31 @@
+{
+  "name": "chart",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.7",
+    "@types/react-dom": "18.2.4",
+    "axios": "^1.4.0",
+    "chart.js": "2.9.4",
+    "d3": "^7.0.0",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.4",
+    "jsbarcode": "^3.11.5",
+    "next": "^13.4.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sse": "^0.0.8",
+    "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/chart.js": "^2.9.37",
+    "@types/d3": "^7.4.0"
+  }
+}
