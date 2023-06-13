@@ -14,6 +14,7 @@
     "@types/react-dom": "18.2.4",
     "axios": "^1.4.0",
     "chart.js": "2.9.4",
+    "d3": "^7.0.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "next": "13.4.4",
@@ -23,6 +24,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/chart.js": "^2.9.37"
+    "@types/chart.js": "^2.9.37",
+    "@types/d3": "^7.4.0"
   }
 }
