@@ -6,11 +6,46 @@
     padding-right: 20px;
     padding-top: 20px;
     padding-bottom: 30px;
+    /* display: flex; */
+    /* background-color: #FFFFFF; */
 }
+
 .chartContent {
     padding-top: 0;
     border-radius: 0.75rem; 
     border-width: 1px; 
     border-color: #9CA3AF; 
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
+}
+
+.chartWrapper button{
+    width: 50px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #D4D8DB;
+    color: #4C304F;
+    border: none;
+    font-size: 20px;
+}
+
+.chartWrapper input {
+    width: 120px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #D4D8DB;
+    border: none;
+}
+
+.chartWrapper p {
+    padding : 0 5px;
+    color: black;
+}
+
+.chartWrapper span {
+    width: 50px;
+    height: 20px;
+}
+
+.chartWrapper span button {
+    background-color: #E0C798;
 }
