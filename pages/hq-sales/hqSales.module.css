@@ -37,9 +37,16 @@
     padding-left: 20px;
     height: 100%;
 }
+
+.sidebarRight p {
+    font-size: 15px;
+    color : #FFFFFF;
+}
+
 .pageWrapper {
     display: flex;
     height: 100%;
+    background-color: #56565B;
 }
 
 .settlementDataListWrapper {

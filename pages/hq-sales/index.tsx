@@ -5,11 +5,14 @@ import axios from 'axios';
 import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
-import { CalendarComponent } from "../ToggleCalendar/Calendar";
+// import { CalendarComponent } from "../ToggleCalendar/Calendar";
 import { SettlementDataType } from "@/types/SettlementDataTyle";
+import { NextPageWithLayout } from "../_app";
+import Layout from "@/components/layouts/layout";
+import MainLayout from "@/components/layouts/mainLayout";
 
-<<<<<<< HEAD
-=======
+const HqSales: NextPageWithLayout = () => {
+
 interface SettlementDataType {
     settlementDate: string, // 정산일자
     storeName: string, // 가게이름
@@ -18,9 +21,6 @@ interface SettlementDataType {
     originPrice: number, // 원가
     profit:number, // 이익
 }
->>>>>>> list
-
-export default function HqSales() {
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
     const handleSalesManageBtnClick = () => {
         console.log("매출관리 clicked!!");
@@ -65,17 +65,17 @@ export default function HqSales() {
         <Sidebar />
         <div className={styles.sidebarRight}>
             <div>
-                날짜선택
+                <p>매출관리</p>
             </div>
-            <CalendarComponent 
-            />
+            {/* <CalendarComponent 
+            /> */}
             <div className={styles.chartContainer}>
                 <HqSalesBarChart />
                 <HqSalesPieChart />
             </div>
             <div className={styles.settlementDataListWrapper}>
             
-                <div className={styles.settlementDataListTitle}>매출 목록</div>
+                <div className={styles.settlementDataListTitle}>일일 정산 목록</div>
                 <table className={styles.orderListTable}>
                     <thead className={styles.orderListHead}>
                         <tr>
@@ -109,3 +109,13 @@ export default function HqSales() {
         </div>
     );
 }
+
+HqSales.getLayout = function getLayout(page:React.ReactNode) {
+    return (
+        <MainLayout>
+            {page}
+        </MainLayout>
+    )
+}
+
+export default HqSales;
