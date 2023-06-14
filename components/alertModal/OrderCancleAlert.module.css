@@ -1,0 +1,97 @@
+.modal {
+    background-color: #D4D8DB;
+    width: 390px;
+    height: 250px;
+    border-radius: 30px;
+    /* padding: 20px; */
+    position: relative;
+    z-index: 200;
+    box-sizing: border-box;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.footer a {
+    padding-left: 20px;
+}
+
+.footer button {
+    background-color: #4C304F;
+    width: 127px;
+    height: 40px;
+    border-radius: 24px;
+    font-size: 20px;
+    color: #ffffff;
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.footer button p {
+    padding-left: 20px;
+}
+
+.title {
+    color : #4C304F;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: center;
+    /* backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.5); */
+    margin-left: -31.5px;
+}
+
+.bodyFirst {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.bodyFirst p {
+    font-size: 25px;
+    padding: 0px 0;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.bodySecond {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.bodySecond p {
+    font-size: 25px;
+    padding: 0px 0;
+    margin-bottom: 30px;
+}
+
+.cancel {
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 24px;
+}
+
+.cancel button {
+    background-color: #D4D8DB;
+    border: none;
+}
+
+
