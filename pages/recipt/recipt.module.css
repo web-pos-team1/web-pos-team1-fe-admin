@@ -221,5 +221,10 @@
   .pointTable td {
     padding: 2px 0;
   }
-
+  .pointTable .pointSaveAmount td:last-child{
+    float: right;
+  }
+  .pointTable .userPoint td:last-child{
+    float: right;
+  }
 
