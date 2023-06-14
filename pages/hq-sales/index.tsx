@@ -5,11 +5,14 @@ import axios from 'axios';
 import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
-import { CalendarComponent } from "../ToggleCalendar/Calendar";
+// import { CalendarComponent } from "../ToggleCalendar/Calendar";
 import { SettlementDataType } from "@/types/SettlementDataTyle";
+import { NextPageWithLayout } from "../_app";
+import Layout from "@/components/layouts/layout";
+import MainLayout from "@/components/layouts/mainLayout";
 
-
-export default function HqSales() {
+const HqSales: NextPageWithLayout = () => {
+    
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
     const handleSalesManageBtnClick = () => {
         console.log("매출관리 clicked!!");
@@ -56,8 +59,8 @@ export default function HqSales() {
             <div>
                 날짜선택
             </div>
-            <CalendarComponent 
-            />
+            {/* <CalendarComponent 
+            /> */}
             <div className={styles.chartContainer}>
                 <HqSalesBarChart />
                 <HqSalesPieChart />
@@ -109,3 +112,13 @@ export default function HqSales() {
         </div>
     );
 }
+
+HqSales.getLayout = function getLayout(page:React.ReactNode) {
+    return (
+        <MainLayout>
+            {page}
+        </MainLayout>
+    )
+}
+
+export default HqSales;
