@@ -26,6 +26,9 @@ export default function Sidebar() {
     }
     const sidebarMenuList = [
         {
+            name: "종합대시보드"
+        },
+        {
             name: "매출관리",
             handleClick: () => handleSalesManageBtnClick()
         },

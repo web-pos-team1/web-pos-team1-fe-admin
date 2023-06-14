@@ -57,7 +57,7 @@ const HqSales: NextPageWithLayout = () => {
         <Sidebar />
         <div className={styles.sidebarRight}>
             <div>
-                날짜선택
+                <p>매출관리</p>
             </div>
             {/* <CalendarComponent 
             /> */}
@@ -67,11 +67,11 @@ const HqSales: NextPageWithLayout = () => {
             </div>
             <div className={styles.settlementDataListWrapper}>
             
-                <div className={styles.settlementDataListTitle}>매출 목록</div>
+                <div className={styles.settlementDataListTitle}>일일 정산 목록</div>
                 <table className={styles.orderListTable}>
                     <thead className={styles.orderListHead}>
                         <tr>
-                            <th>주문번호</th>
+                            <th>정산일자</th>
                             <th>지점명</th>
                             <th>주문일자</th>
                             <th>결제상태</th>
