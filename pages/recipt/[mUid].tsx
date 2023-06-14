@@ -47,12 +47,13 @@ export default function Recipt() {
            pointUsePrice,
            pointSaveAmount
            } = res.data;
+        console.log("res.data: ", res.data);
         console.log("[before]orderDate: ", orderDate);
         // 2023-06-13T10:36:54.415664
         const orderDateList = orderDate.split('T');
         console.log("[mid]orderDate: ", orderDateList);
         const timeList = orderDateList[1].split('.')[0].split(':');
-        const hhMM = timeList[0] + ":" + timeList[1]; 
+        const hhMM = (Number(timeList[0]) + 9) + ":" + timeList[1]; 
         setOrderDate(orderDateList[0] + " " + hhMM);
         setOrderSerialNumber(orderSerialNumber);
         setProductList(orderDetailProductResponseDTOList);

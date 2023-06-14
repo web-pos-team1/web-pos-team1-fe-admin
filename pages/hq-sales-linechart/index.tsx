@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from './hq-sales-barchart.module.css';
 import { Chart } from 'chart.js';
 import axios from "axios";
+import { mapToBE } from "@/globalFunction/mapToBE";
 interface BarData { // 이름은 BarData지만 LineData를 나타낸다.
     settlementDayDate: string;
     settlementDaySettlementPrice: number;
@@ -16,7 +17,8 @@ export default function HqSalesBarChart() {
 
     // 전체 조회 일주일
     const handle1WeekBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=1week/startDate=0/endDate=0`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=1week/startDate=0/endDate=0`;
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=0/date=1week/startDate=0/endDate=0`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -29,7 +31,8 @@ export default function HqSalesBarChart() {
 
     // 전체 조회 한달
     const handle1MonthBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=1month/startDate=0/endDate=0`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=1month/startDate=0/endDate=0`;
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=0/date=1month/startDate=0/endDate=0`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -42,7 +45,8 @@ export default function HqSalesBarChart() {
 
     // 전체 조회 3달
     const handle3MonthBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=3month/startDate=0/endDate=0`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=3month/startDate=0/endDate=0`;
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=0/date=3month/startDate=0/endDate=0`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -63,7 +67,8 @@ export default function HqSalesBarChart() {
     }
 
     const handleSearchBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=0/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);

@@ -20,7 +20,8 @@ export default function HqSalesPieChart() {
     const handle1WeekBtnClick = () => {
         // mapToBE(``)
         // const url = `/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
-        const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`);
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -31,7 +32,8 @@ export default function HqSalesPieChart() {
         });        
     }
     const handle1MonthBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=1month/startDate=${startDate}/endDate=${endDate}`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=1month/startDate=${startDate}/endDate=${endDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=1month/startDate=${startDate}/endDate=${endDate}`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -42,7 +44,8 @@ export default function HqSalesPieChart() {
         });
     }
     const handle3MonthBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=3month/startDate=${startDate}/endDate=${endDate}`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=3month/startDate=${startDate}/endDate=${endDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=3month/startDate=${startDate}/endDate=${endDate}`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -61,7 +64,8 @@ export default function HqSalesPieChart() {
     }
     // 범위검색(range query)
     const handleSearchBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
