@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from 'chart.js';
-import styles from './hqSales.module.css';
+import styles from './index.module.css';
 import axios from 'axios';
 import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
-import { CalendarComponent } from "../ToggleCalendar/Calendar";
-import { SettlementDataType } from "@/types/SettlementDataTyle";
 
-<<<<<<< HEAD
-=======
 interface SettlementDataType {
     settlementDate: string, // 정산일자
     storeName: string, // 가게이름
@@ -18,7 +14,6 @@ interface SettlementDataType {
     originPrice: number, // 원가
     profit:number, // 이익
 }
->>>>>>> list
 
 export default function HqSales() {
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
@@ -52,14 +47,27 @@ export default function HqSales() {
             handleClick: () => handleStockManageBtnClick()
         },
 
-    ];
-    const [value, setValue] = useState(new Date());
+    ]
+
+    // useEffect(() => {
+    //     const url = `http://localhost:4000/salesBarChartLabelList`
+    //     axios.get(url)
+    //     .then((res: any) => setSettlementDataList(res.data))
+    //     .catch((err: any) => console.log("err: ", err));
+    // }, [])
     useEffect(() => {
-        const url = `http://localhost:4000/salesBarChartLabelList`
-        axios.get(url)
-        .then((res: any) => setSettlementDataList(res.data))
-        .catch((err: any) => console.log("err: ", err));
-    }, [])
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0');
+            setSettlementDataList(response.data);
+          } catch (error) {
+            console.log('Error fetching settlement data:', error);
+          }
+        };
+    
+        fetchData();
+      }, []);
+
     return (
         <div className={styles.pageWrapper}>
         <Sidebar />
@@ -67,8 +75,6 @@ export default function HqSales() {
             <div>
                 날짜선택
             </div>
-            <CalendarComponent 
-            />
             <div className={styles.chartContainer}>
                 <HqSalesBarChart />
                 <HqSalesPieChart />
@@ -93,7 +99,6 @@ export default function HqSales() {
                                 <tr key={index} className={styles.orderListBody}>
                                     <td>{item.settlementDate}</td>
                                     <td>{item.storeName}</td>
-                                    <td>{item.charge}</td>
                                     <td>{item.charge}</td>
                                     <td>{item.settlementPrice}</td>
                                     <td>{item.originPrice}</td>                      
