@@ -48,12 +48,26 @@ export default function HqSales() {
         },
 
     ]
+
+    // useEffect(() => {
+    //     const url = `http://localhost:4000/salesBarChartLabelList`
+    //     axios.get(url)
+    //     .then((res: any) => setSettlementDataList(res.data))
+    //     .catch((err: any) => console.log("err: ", err));
+    // }, [])
     useEffect(() => {
-        const url = `http://localhost:4000/salesBarChartLabelList`
-        axios.get(url)
-        .then((res: any) => setSettlementDataList(res.data))
-        .catch((err: any) => console.log("err: ", err));
-    }, [])
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0');
+            setSettlementDataList(response.data);
+          } catch (error) {
+            console.log('Error fetching settlement data:', error);
+          }
+        };
+    
+        fetchData();
+      }, []);
+
     return (
         <div className={styles.pageWrapper}>
         <Sidebar />
@@ -85,7 +99,6 @@ export default function HqSales() {
                                 <tr key={index} className={styles.orderListBody}>
                                     <td>{item.settlementDate}</td>
                                     <td>{item.storeName}</td>
-                                    <td>{item.charge}</td>
                                     <td>{item.charge}</td>
                                     <td>{item.settlementPrice}</td>
                                     <td>{item.originPrice}</td>                      
