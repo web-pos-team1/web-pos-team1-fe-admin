@@ -3,6 +3,7 @@ import styles from './recipt.module.css';
 import axios from "axios";
 import JsBarcode from "jsbarcode";
 import { mapToBE } from "@/globalFunction/mapToBE";
+import { useRouter } from "next/router";
 export default function Recipt() {
   const [mUid, setMUid] = useState<string>('202306141015170201');
   const [orderDate, setOrderDate] = useState<string>('');
@@ -18,7 +19,7 @@ export default function Recipt() {
   const [pointUsePrice, setPointUsePrice] = useState<number>(0);
   const [pointSaveAmount, setPointSaveAmount] = useState<number>(0);
 
-
+  const router = useRouter();
 
   // 
   const [cardName, setCardName] = useState<string>('');
@@ -26,8 +27,9 @@ export default function Recipt() {
 
 
   useEffect(() => {
-    // const url = mapToBE(`/api/v1/manager/orders-detail?merchantUid=${mUid}`);
-    const url = `http://localhost:8080/api/v1/manager/orders-detail?merchantUid=${mUid}`;
+    const url = mapToBE(`/api/v1/manager/orders-detail?merchantUid=${router.query.mUid}`);
+    console.log("router.query.mUid: ", router.query.mUid);
+    // const url = `http://localhost:8080/api/v1/manager/orders-detail?merchantUid=${mUid}`;
     axios.get(url)
       .then((res) => {
         const { orderDate,
@@ -65,6 +67,7 @@ export default function Recipt() {
         setCouponUsePrice(couponUsePrice);
         setPointUsePrice(pointUsePrice);
         setPointSaveAmount(pointSaveAmount)
+        setMUid(router.query.mUid);
         console.log("res: ", res);
       })
       .catch((err) => {
@@ -74,7 +77,7 @@ export default function Recipt() {
         width: 300,
         height: 60
       });
-  }, []);
+  }, [router.query.mUid]);
     return (
         <div className={styles.reciptWrapper}>
         <div className={styles.reciptContainer}>
