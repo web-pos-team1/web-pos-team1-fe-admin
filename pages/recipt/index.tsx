@@ -4,7 +4,7 @@ import axios from "axios";
 import JsBarcode from "jsbarcode";
 import { mapToBE } from "@/globalFunction/mapToBE";
 export default function Recipt() {
-  const [mUid, setMUid] = useState<string>('202306131936270201');
+  const [mUid, setMUid] = useState<string>('202306141015170201');
   const [orderDate, setOrderDate] = useState<string>('');
   const [orderSerialNumber, setOrderSerialNumber] = useState<string>('');
   const [productList, setProductList] = useState<any[]>([]);
@@ -14,6 +14,11 @@ export default function Recipt() {
   const [productPrice, setProductPrice] = useState<number>(0);
   const [vat, setVat] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [couponUsePrice, setCouponUsePrice] = useState<number>(0);
+  const [pointUsePrice, setPointUsePrice] = useState<number>(0);
+  const [pointSaveAmount, setPointSaveAmount] = useState<number>(0);
+
+
 
   // 
   const [cardName, setCardName] = useState<string>('');
@@ -21,8 +26,8 @@ export default function Recipt() {
 
 
   useEffect(() => {
-    const url = mapToBE(`/api/v1/manager/orders-detail?merchantUid=${mUid}`);
-    // const url = `http://localhost:8080/api/v1/manager/orders-detail?merchantUid=${mUid}`;
+    // const url = mapToBE(`/api/v1/manager/orders-detail?merchantUid=${mUid}`);
+    const url = `http://localhost:8080/api/v1/manager/orders-detail?merchantUid=${mUid}`;
     axios.get(url)
       .then((res) => {
         const { orderDate,
@@ -35,7 +40,10 @@ export default function Recipt() {
            finalTotalPrice,
            totalPrice,
            cardName,
-           cardNumber
+           cardNumber,
+           couponUsePrice,
+           pointUsePrice,
+           pointSaveAmount
            } = res.data;
         console.log("[before]orderDate: ", orderDate);
         // 2023-06-13T10:36:54.415664
@@ -54,6 +62,9 @@ export default function Recipt() {
         setTotalPrice(totalPrice);
         setCardName(cardName);
         setCardNumber(cardNumber);
+        setCouponUsePrice(couponUsePrice);
+        setPointUsePrice(pointUsePrice);
+        setPointSaveAmount(pointSaveAmount)
         console.log("res: ", res);
       })
       .catch((err) => {
@@ -78,8 +89,8 @@ export default function Recipt() {
             </div>
             <div className={styles.storeAddress}>부산광역시 해운대구 센텀남대로35(우동)</div>
             <div className={styles.componyInfo}>
-                <div className={styles.businessNumber}>201-81-32195 &nbsp; </div>
-                <div className={styles.ceoName}>손영식</div>
+                <div className={styles.businessNumber}>201-81-32195 &nbsp; 손영식</div>
+                {/* <div className={styles.ceoName}>손영식</div> */}
             </div>
             <div className={styles.orderInfo}>
                 <div className={styles.orderDate}>구매: {orderDate}</div>
@@ -110,6 +121,17 @@ export default function Recipt() {
                 <td></td>
                 <td className={styles.sum}><span>{totalPrice}</span></td>
               </tr>
+              <tr>
+                <td className={styles.coupon} colSpan={2}>상품권 사용</td>
+                <td></td>
+                <td className={styles.coupon}><span>-{couponUsePrice}</span></td>
+              </tr>
+              <tr>
+                <td className={styles.coupon} colSpan={2}>포인트 사용</td>
+                <td></td>
+                <td className={styles.coupon}><span>-{pointUsePrice}</span></td>
+              </tr>
+              
             </tbody>
             <tfoot>
               <tr>
@@ -136,24 +158,24 @@ export default function Recipt() {
                 <td><span>{cardNumber}</span></td>
               </tr>
               <tr className={styles.cardInfo}>
-                <td>승인번호<span>3000000</span></td>
+                <td>승인번호 30015986</td>
                 <td><span>일시불</span></td>
               </tr>
             </tbody>
           </table>
 
              <div className={styles.pointInfo}>
-                <span className={styles.userName}>{userName}</span>님의 포인트 현황입니다.
+                {userName}님의 포인트 현황입니다.
                 </div>
           <table className={styles.pointTable}>
             <tbody>
               <tr className={styles.pointSaveAmount}>
                 <td>금회적립포인트</td>
-                <td><span>1</span></td>
+                <td>{pointSaveAmount}</td>
               </tr>
               <tr className={styles.userPoint}>
-                <td>누적(가용)포인트</td>
-                <td><span>{userPoint}(195)</span></td>
+                <td>누적포인트</td>
+                <td>{userPoint}</td>
               </tr>
               <tr className={styles.expirationPeriodInfo}>
                 <td>*신세계포인트 유효기간은 2년입니다.</td>
