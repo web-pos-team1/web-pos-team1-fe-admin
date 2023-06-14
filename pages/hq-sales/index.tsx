@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from 'chart.js';
-import styles from './index.module.css';
+import styles from './hqSales.module.css';
 import axios from 'axios';
-import HqSalesBarChart from "../hq-sales-barchart";
+import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
+import { CalendarComponent } from "../ToggleCalendar/Calendar";
+import { SettlementDataType } from "@/types/SettlementDataTyle";
 
-interface SettlementDataType {
-    orderSerialNumber: string, // '2023051102010001'
-    branchName: string, // '강남점'
-    orderDate: string, // '2023.05.11'
-    orderStatus: string, // '성공'
-    orderMethod: string, // '카드'
-    totalPrice: number, // 80000
-    couponUsePrice?: number, // 10000 
-    poinUsePrice?: number, // 1000
-    finalTotalPrice: number, // 100000
-    charge: number, // 10000
-    totalOriginPrice: number, // 10000
-    profit: number // 100000
-}
 
 export default function HqSales() {
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
@@ -53,7 +41,8 @@ export default function HqSales() {
             handleClick: () => handleStockManageBtnClick()
         },
 
-    ]
+    ];
+    const [value, setValue] = useState(new Date());
     useEffect(() => {
         const url = `http://localhost:4000/salesBarChartLabelList`
         axios.get(url)
@@ -67,6 +56,8 @@ export default function HqSales() {
             <div>
                 날짜선택
             </div>
+            <CalendarComponent 
+            />
             <div className={styles.chartContainer}>
                 <HqSalesBarChart />
                 <HqSalesPieChart />

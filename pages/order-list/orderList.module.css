@@ -1,0 +1,10 @@
+.pageWrapper {
+    display: flex;
+    height: 100%;
+}
+
+.sidebarRight {
+    width: 900px;
+    padding-left: 20px;
+    height: 100%;
+}
