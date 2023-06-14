@@ -17,37 +17,43 @@ const Home: NextPageWithLayout = () => {
   const [adminNumber, setAdminNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleAdminNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAdminNumberChange = (e: any) => {
     setAdminNumber(e.target.value);
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
   };
 
   const handleLoginBtnClick = () => {
+    // const url = 'http://localhost:8080/api/v1/hq/login';
     const url = mapToBE('/api/v1/hq/login');
     const data = {
-      adminNumber,
-      password,
+      "adminNumber" : adminNumber,
+      "password": password,
     };
 
     axios
-      .post(url, data)
-      .then((res) => {
-        console.log('res: ', res);
-        console.log('res.data.accessToken: ', res.data.accessToken);
-        console.log('res.data.refreshToken: ', res.data.refreshToken);
-        if (res.status === 200) {
-          alert('로그인에 성공했습니다.');
-          router.push('/hq-sales');
-        }
-      })
-      .catch((err) => {
-        console.log('err: ', err);
-      });
-  };
-
+    (
+      url,
+      {
+        method: 'post',
+        data: data
+      }
+    )
+    .then((res) => {
+      console.log("res: ", res);
+      console.log("res.data.accessToken: ", res.data.accessToken);
+      console.log("res.data.refreshToken: ", res.data.refreshToken);
+      if (res.status == 200) {
+        alert("로그인에 성공했습니다.");
+        router.push('/hq-sales');
+      }
+    })
+    .catch((err) => {
+      console.log("err: ", err);
+    })
+  }
   return (
     <>
       <Head>
