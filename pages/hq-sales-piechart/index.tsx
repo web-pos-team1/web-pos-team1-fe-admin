@@ -20,7 +20,9 @@ export default function HqSalesPieChart() {
     const handle1WeekBtnClick = () => {
         // mapToBE(``)
         // const url = `/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
-        const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`);
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
+    
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -31,7 +33,8 @@ export default function HqSalesPieChart() {
         });        
     }
     const handle1MonthBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=1month/startDate=${startDate}/endDate=${endDate}`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=1month/startDate=${startDate}/endDate=${endDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=1month/startDate=${startDate}/endDate=${endDate}`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -42,7 +45,8 @@ export default function HqSalesPieChart() {
         });
     }
     const handle3MonthBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=3month/startDate=${startDate}/endDate=${endDate}`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=3month/startDate=${startDate}/endDate=${endDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=3month/startDate=${startDate}/endDate=${endDate}`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -61,7 +65,8 @@ export default function HqSalesPieChart() {
     }
     // 범위검색(range query)
     const handleSearchBtnClick = () => {
-        const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`;
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`;
+        const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -140,19 +145,19 @@ export default function HqSalesPieChart() {
             <div className={styles.chartWrapper}>
                 <p>지점별 매출분포</p>
                 <button onClick={handle1WeekBtnClick}>
-                    일주일버튼
+                    1주일
                 </button>
                 <button onClick={handle1MonthBtnClick}>
-                    한달버튼
+                    1개월
                 </button>
                 <button onClick={handle3MonthBtnClick}>
-                    세달버튼
+                    3개월
                 </button>
                 <br/>
                 <input value={inputStartDate} placeholder="시작날짜(ex.2023-01-04)" onChange={handleStartDateChange} type="text"/>
                 <input value={inputEndDate} placeholder="끝날짜(ex.2023-01-04)" onChange={handleEndDateChange} type="text"/>
                 <button onClick={handleSearchBtnClick}>
-                    범위검색
+                    검색
                 </button>
                 <div className={styles.chartContent}>
                     <canvas id='salesPieChartEachStore'></canvas>

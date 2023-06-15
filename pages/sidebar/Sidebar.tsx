@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from './Sidebar.module.css';
+import { useRouter } from "next/router";
 
 export default function Sidebar() {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
+    const router = useRouter();
     const toggleSide = () => {
         setSidebarOpen(false);
     }
@@ -18,7 +20,14 @@ export default function Sidebar() {
     const handleStockManageBtnClick = () => {
         console.log("재고관리 clicked!!");
     }
+    const handleOrderManageBtnClick = () => {
+        console.log("주문관리 clicked!!");
+        router.push("/order-list");
+    }
     const sidebarMenuList = [
+        {
+            name: "종합대시보드"
+        },
         {
             name: "매출관리",
             handleClick: () => handleSalesManageBtnClick()
@@ -34,6 +43,10 @@ export default function Sidebar() {
         {
             name: "재고관리",
             handleClick: () => handleStockManageBtnClick()
+        },
+        {
+            name: "주문관리",
+            handleClick: () => handleOrderManageBtnClick()
         },
 
     ]

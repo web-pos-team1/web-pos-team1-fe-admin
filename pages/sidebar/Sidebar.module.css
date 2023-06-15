@@ -1,26 +1,27 @@
 .sidebarWrapper {
     /* z-index: 5; */
     padding: 12px;
-    border-radius: 15px 0 0 15px;
-    background-color: #e7e4e1;
+    background-color: #4C304F;
     height: 100%;
     width: 100px;
     left: -1%;
     top: 0;
     /* position: fixed; */
     transition: 0.5s ease;
-    &.open {
-        left: 0;
-        transition: 0.5s ease;
-    }
+    width: 180px;
+    height: 956px;
 }
-.menuWrapper {
+
+.menuWrapper  {
     text-decoration: none;
     padding: 2px;
     list-style: none;
+    color : #D4D8DB;
 }
+
 .menu {
+    display: flex;
+    justify-content: center;
     text-decoration: none;
-    padding-right: 5px;
-    border: 1px solid;
+    padding: 10px 0;
 }
