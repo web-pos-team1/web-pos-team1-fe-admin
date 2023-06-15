@@ -6,7 +6,7 @@ import OrderCancleAlertModal from "@/components/alertModal/OrderCancleAlert";
 import { mapToBE } from "@/globalFunction/mapToBE";
 import axios from 'axios';
 import { formatMoney } from "@/globalFunction/formatMoney";
-import { style } from "d3";
+// import { style } from "d3";
 
 interface OrderDataType {
     charge: number,

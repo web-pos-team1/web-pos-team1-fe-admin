@@ -144,6 +144,21 @@ export default function HqSalesPieChart() {
             {/* Pie chart */}
             <div className={styles.chartWrapper}>
                 <p>지점별 매출분포</p>
+                <button onClick={handle1WeekBtnClick}>
+                    1주일
+                </button>
+                <button onClick={handle1MonthBtnClick}>
+                    1개월
+                </button>
+                <button onClick={handle3MonthBtnClick}>
+                    3개월
+                </button>
+                <br/>
+                <input value={inputStartDate} placeholder="시작날짜(ex.2023-01-04)" onChange={handleStartDateChange} type="text"/>
+                <input value={inputEndDate} placeholder="끝날짜(ex.2023-01-04)" onChange={handleEndDateChange} type="text"/>
+                <button onClick={handleSearchBtnClick}>
+                    검색
+                </button>
                 <div className={styles.chartContent}>
                     <canvas id='salesPieChartEachStore'></canvas>
                 </div>
