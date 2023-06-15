@@ -21,6 +21,11 @@ interface SettlementDataType {
     originPrice: number, // 원가
     profit:number, // 이익
 }
+<<<<<<< HEAD
+=======
+
+export default function HqSales() {
+>>>>>>> list
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
     const handleSalesManageBtnClick = () => {
         console.log("매출관리 clicked!!");
