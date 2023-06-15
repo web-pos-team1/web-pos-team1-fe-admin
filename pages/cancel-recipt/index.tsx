@@ -4,7 +4,7 @@ import axios from "axios";
 import JsBarcode from "jsbarcode";
 import { mapToBE } from "@/globalFunction/mapToBE";
 export default function Recipt() {
-  const [mUid, setMUid] = useState<string>('202306131936270201');
+  const [mUid, setMUid] = useState<string>('202306151605010201');
   const [orderDate, setOrderDate] = useState<string>('');
   const [cancelDate, setCancelDate] = useState<string>('');
   const [orderSerialNumber, setOrderSerialNumber] = useState<string>('');
@@ -101,10 +101,10 @@ export default function Recipt() {
                 {/* <div className={styles.ceoName}>손영식</div> */}
             </div>
             <div className={styles.orderInfo}>
-                <div className={styles.orderDate}>구매: {orderDate}</div>
+                <div className={styles.orderDate}>구매: 2023-06-14 02:21</div>
                 <div className={styles.orderSerialNumber}>거래번호: {orderSerialNumber}</div>
             </div>
-            <div className={styles.cancelDate}>취소: {cancelDate}</div>
+            <div className={styles.cancelDate}>취소: 2023-06-15 11:12</div>
            
           </div>
           <table className={styles.receiptTable}>
