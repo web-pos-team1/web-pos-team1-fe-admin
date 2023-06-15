@@ -22,6 +22,7 @@ export default function HqSalesPieChart() {
         // const url = `/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
         const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`);
         // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
+    
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
