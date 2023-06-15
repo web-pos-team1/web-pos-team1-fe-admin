@@ -1,15 +1,17 @@
 .chartWrapper {
     margin-left: auto;
     margin-right: auto; 
-    height: 600px; 
-    width: 800px;
+    width: 100%;
     /* padding-right: 20px; */
-    padding-top: 20px;
     
+}
+.chartWrapper p {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .chartContent {
-    padding-top: 20px; 
+    padding-top: 3px;
     padding-bottom: 0.5rem; 
     border-radius: 0.75rem; 
     border-width: 1px; 
