@@ -13,19 +13,15 @@ import MainLayout from "@/components/layouts/mainLayout";
 
 const HqSales: NextPageWithLayout = () => {
 
-interface SettlementDataType {
-    settlementDate: string, // 정산일자
-    storeName: string, // 가게이름
-    charge: number, // 수수료
-    settlementPrice: number, // 정산가격
-    originPrice: number, // 원가
-    profit:number, // 이익
-}
-<<<<<<< HEAD
-=======
+    interface SettlementDataType {
+        settlementDate: string, // 정산일자
+        storeName: string, // 가게이름
+        charge: number, // 수수료
+        settlementPrice: number, // 정산가격
+        originPrice: number, // 원가
+        profit:number, // 이익
+    }
 
-export default function HqSales() {
->>>>>>> list
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
     const handleSalesManageBtnClick = () => {
         console.log("매출관리 clicked!!");
@@ -114,10 +110,12 @@ export default function HqSales() {
         </div>
     );
 }
-
 HqSales.getLayout = function getLayout(page:React.ReactNode) {
     return (
-        <MainLayout>
+        <MainLayout
+            role='hq'
+            name='권*진'
+        >
             {page}
         </MainLayout>
     )

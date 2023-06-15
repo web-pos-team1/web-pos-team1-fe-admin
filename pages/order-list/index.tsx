@@ -6,7 +6,11 @@ import OrderCancleAlertModal from "@/components/alertModal/OrderCancleAlert";
 import { mapToBE } from "@/globalFunction/mapToBE";
 import axios from 'axios';
 import { formatMoney } from "@/globalFunction/formatMoney";
-import { style } from "d3";
+// import { style } from "d3";
+import BarcodeScaneAlertModal from "@/components/alertModal/BarcodeScanAlert";
+import CancelCheckAlertModal from "@/components/alertModal/CancelCheckAlertModal";
+import { NextPageWithLayout } from "../_app";
+import MainLayout from "@/components/layouts/mainLayout";
 
 interface OrderDataType {
     charge: number,
@@ -61,10 +65,13 @@ const initTermDataList = [
     }
 ];
 
-export default function OrderList() {
+const OrderList: NextPageWithLayout = () => {
     const [orderList, setOrderList] = useState<SettlementDataType[]>([]);
     const [mUid, setMUid] = useState<string>('');
     const [showOrderDelAlert, setShowOrderDelAlert] = useState<boolean>(false);
+    const [showBarcodeAlert, setShowBarcodeAlert] = useState<boolean>(false);
+    const [showCancelCheckAlert, setShowCancelCheckAlert] = useState<boolean>(false);
+    const [state, setState] = useState<boolean>(false);
 
     const [date, setDate] = useState<string>('1week'); // 1week, 1month, 3month, term(기간별)
     const [storeId, setStoreId] = useState<number>(0);
@@ -151,12 +158,16 @@ export default function OrderList() {
     }
     const handleBarcodeCancelBtnClick = () => {
         console.log("barcode 취소 클릭!!");
-        setShowOrderDelAlert(true);
+        setShowBarcodeAlert(true);
     }
 
     const handleCancelBtnClick = (index: number) => {
 
         console.log("주문 취소 버튼 클릭!: ", index);
+    }
+    const handleFinalCancelYesBtnClick = () => {
+        setState(!state);
+        setShowCancelCheckAlert(false);
     }
 
     useEffect(() => {
@@ -202,13 +213,24 @@ export default function OrderList() {
             setActiveTermState([...aTermStateList]);
         }
 
-    }, [])
+    }, [state])
     return(
         <>
+            <BarcodeScaneAlertModal 
+                show={showBarcodeAlert}
+                onClose={setShowBarcodeAlert}
+                setMuid={setMUid}
+                onOpen={setShowOrderDelAlert}
+            />
             <OrderCancleAlertModal 
                 show={showOrderDelAlert} 
                 onClose={setShowOrderDelAlert} 
+                onOpen={setShowCancelCheckAlert}
                 mUid={mUid}
+            />
+            <CancelCheckAlertModal 
+                show={showCancelCheckAlert}
+                onClose={setShowCancelCheckAlert}
             />
             <div className={styles.pageWrapper}>
                 <Sidebar 
@@ -216,7 +238,7 @@ export default function OrderList() {
                 />
                 <div className={styles.sidebarRight}>
 
-                    <h3>주문관리</h3>
+                    <h3 style={{ color: "white" }}>주문관리</h3>
                     <div className={styles.storeListWrapper}>
                         <ul>
                             {
@@ -237,14 +259,18 @@ export default function OrderList() {
                                     </li>
                                 ))
                             }
-                            <div className={styles.calendarInputBoxWrapper}>
+                            {/* <div className={styles.calendarInputBoxWrapper}>
+                                
                                 <li className={styles.calendarStartDateInputBox}>
                                     <input type="text" value={startDate} onChange={handleStartDateChange} />
                                 </li>
-                               <li className={styles.calendarEndDateInputBox}>
-                                <input type="text" value={endDate} onChange={handleEndDateChange} />
+                                <li className={styles.calendarCenter}>
+                                ~
                                 </li>
-                            </div>
+                               <li className={styles.calendarEndDateInputBox}>
+                                    <input type="text" value={endDate} onChange={handleEndDateChange} />
+                                </li>
+                            </div> */}
                             
                             
                         </ul>
@@ -265,7 +291,6 @@ export default function OrderList() {
                         <thead className={styles.orderListHead}>
                             <tr>
                                 <th>주문번호</th>
-                                <th>지점명</th>
                                 <th>주문일자</th>
                                 <th>결제상태</th>
                                 <th>결제수단</th>
@@ -281,45 +306,91 @@ export default function OrderList() {
                         </thead>
                         <tbody>
                             {
-                                orderDataList.map((item, index) => (
-                                    <tr key={index} className={styles.orderListBody}>
-                                        <td>{item.serialNumber}</td>
-                                        <td>{item.storeName}</td>
-                                        <td>
-                                            {convertToYYYYMMDD_HHMMSS(item.orderDate)}
-                                        </td>
-                                        <td>{item.orderStatus}</td>
-                                        <td>{item.payMethod}</td>
-                                        <td className={styles.number}>
-                                            {formatMoney(item.totalPrice)}
-                                        </td>                      
-                                        <td className={styles.number}>
-                                            {formatMoney(item.couponUsePrice)}
-                                        </td>
-                                        <td className={styles.number}>
-                                            {item.pointUsePrice}</td>
-                                        <td className={styles.number}>
-                                            {formatMoney(item.totalPrice)}
-                                        </td>
-                                        <td className={styles.number}>
-                                            {formatMoney(item.charge)}
-                                        </td>
-                                        <td className={styles.number}>
-                                            {formatMoney(item.totalOriginPrice)}
-                                        </td>
-                                        <td className={styles.number}>
-                                            {formatMoney(item.profit)}
-                                        </td>
-                                        <td>
-                                            <div className={styles.cancelBtnWrapper}>
-                                                <div className={styles.cancelBtn} onClick={() => handleCancelBtnClick(index)}>
-                                                    취소
+                                orderDataList.map((item, index) => {
+                                    if (item.orderStatus === 'SUCCESS') {
+                                        return(
+                                            <tr key={index} className={styles.orderListBody}>
+                                            <td>
+                                                {item.serialNumber}
+                                            </td>
+                                            {/* <td>{item.storeName}</td> */}
+                                            <td>
+                                                {convertToYYYYMMDD_HHMMSS(item.orderDate)}
+                                            </td>
+                                            <td>{item.orderStatus}</td>
+                                            <td>{item.payMethod}</td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.totalPrice)}
+                                            </td>                      
+                                            <td className={styles.number}>
+                                                {formatMoney(item.couponUsePrice)}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {item.pointUsePrice}</td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.totalPrice)}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.charge)}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.totalOriginPrice)}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.profit)}
+                                            </td>
+                                            <td>
+                                                <div className={styles.cancelBtnWrapper}>
+                                                    <div className={styles.cancelBtn} onClick={() => handleCancelBtnClick(index)}>
+                                                        취소
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            
-                                        </td>
-                                    </tr>
-                                ))
+                                                
+                                            </td>
+                                        </tr>
+                                        )
+                                    } else {
+                                        return(
+                                            <tr key={index} className={styles.orderListBody}>
+                                            <td>{item.serialNumber}</td>
+                                            {/* <td>{item.storeName}</td> */}
+                                            <td>
+                                                {convertToYYYYMMDD_HHMMSS(item.orderDate)}
+                                            </td>
+                                            <td>{item.orderStatus}</td>
+                                            <td>{item.payMethod}</td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.totalPrice)}
+                                            </td>                      
+                                            <td className={styles.number}>
+                                                {formatMoney(item.couponUsePrice)}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {item.pointUsePrice}</td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.totalPrice)}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.charge)}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.totalOriginPrice)}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {formatMoney(item.profit)}
+                                            </td>
+                                            <td>
+                                                <div className={styles.cancelBtnWrapper}>
+                                                    <div className={styles.cancelBtn} onClick={() => handleCancelBtnClick(index)}>
+                                                    </div>
+                                                </div>
+                                                
+                                            </td>
+                                        </tr>
+                                        )
+                                    }
+                                    
+                                })
                             }
                         </tbody>
                     </table>
@@ -331,3 +402,16 @@ export default function OrderList() {
     
     )
 }
+
+OrderList.getLayout = function getLayout(page:React.ReactNode) {
+    return (
+        <MainLayout
+            role='branch'
+            name='김*아'
+        >
+            {page}
+        </MainLayout>
+    )
+}
+
+export default OrderList;

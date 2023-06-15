@@ -32,7 +32,8 @@ li.active {
     text-decoration: none;
     padding: 10px 0;
     background-color: #E0C798;
-    color: gray;
+    color: black;
+    font-weight: bold;
     border-radius: 20px;
 }
 
