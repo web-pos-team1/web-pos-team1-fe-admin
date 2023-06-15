@@ -8,8 +8,6 @@ import Sidebar from "../sidebar/Sidebar";
 import { CalendarComponent } from "../ToggleCalendar/Calendar";
 import { SettlementDataType } from "@/types/SettlementDataTyle";
 
-<<<<<<< HEAD
-=======
 interface SettlementDataType {
     settlementDate: string, // 정산일자
     storeName: string, // 가게이름
@@ -18,7 +16,6 @@ interface SettlementDataType {
     originPrice: number, // 원가
     profit:number, // 이익
 }
->>>>>>> list
 
 export default function HqSales() {
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
