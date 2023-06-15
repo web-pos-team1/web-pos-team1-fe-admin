@@ -25,3 +25,22 @@
     text-decoration: none;
     padding: 10px 0;
 }
+
+li.active {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 0;
+    background-color: #E0C798;
+    color: gray;
+    border-radius: 20px;
+}
+
+li.deactive {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 0;
+    /* background-color: #56565B; */
+    color: white;
+}
