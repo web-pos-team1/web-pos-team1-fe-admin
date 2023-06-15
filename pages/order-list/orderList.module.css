@@ -4,7 +4,175 @@
 }
 
 .sidebarRight {
-    width: 900px;
+    width: 2080px;
     padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
     height: 100%;
+}
+.orderListBody td {
+    font-size: 12px;
+    border: 1px solid #444444;
+    padding: 3px 3px;
+}
+
+.orderListHead th {
+    font-size: 12px;
+    border: 1px solid #444444;
+    background-color: #4C304F;
+    color: white;
+}
+.orderListTable {
+    width: 100%;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.number {
+    text-align: right;
+}
+
+
+li.active {
+    background-color: #4C304F;
+    color: white;
+}
+
+li.deactive {
+    background-color: #56565B;
+    color: gray;
+}
+
+.storeListWrapper {
+    width: 100%;
+    height: 83px;
+    /* background-color: #56565B; */
+    background-color: white;
+    color: #989DA1;
+    align-items: center;
+    border-radius: 14px;
+    margin-top: 20px;
+    margin-left: 12px;
+    /* margin-bottom: 37px; */
+}
+
+.storeListWrapper ul {
+    display: flex;
+    font-size: 20px;
+    /* justify-content: center;
+    align-items: center; */
+    padding-left: 10px;
+}
+
+.storeListWrapper ul li {
+    list-style: none;
+    margin: 15px 0;
+    font-weight: 500;
+    /* justify-content: space-around; */
+    justify-content: center;
+    align-items: center;
+    width: 115px;
+    height: 43px;
+    display: flex;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+
+
+.termListWrapper {
+    width: 100%;
+    height: 83px;
+    /* background-color: #56565B; */
+    background-color: white;
+    color: #989DA1;
+    align-items: center;
+    border-radius: 14px;
+    margin-top: 20px;
+    margin-left: 12px;
+}
+
+.termListWrapper ul {
+    display: flex;
+    font-size: 23px;
+    /* justify-content: center;
+    align-items: center; */
+    padding-left: 10px;
+}
+
+.termListWrapper ul li {
+    list-style: none;
+    margin: 15px 0;
+    font-weight: 500;
+    /* justify-content: space-around; */
+    justify-content: center;
+    align-items: center;
+    width: 115px;
+    height: 43px;
+    border-radius: 20px;
+    display: flex;
+    margin-right: 5px;
+}
+.cancelBtnWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cancelBtn {
+    background-color: #E0C798;
+    color: #4C304F;
+    text-align: center;
+    width: 30px;
+    /* margin-left: 20px; */
+    margin-right: 0px;
+    border-right: 0px;
+    border-radius: 20px;
+}
+
+.middleWrapper {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.settlementDataListTitle {
+    font-size: 20px;
+}
+
+.cancelBarcodeBtn {
+    background-color: #E0C798;
+    color: #4C304F;
+    text-align: center;
+    border-radius: 20px;
+    width: 100px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.calendarInputBoxWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.calendarStartDateInputBox {
+    margin-left: 20px;
+    padding-left: 120px;
+    padding-right: 20px;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+.calendarEndDateInputBox {
+    margin-left: 20px;
+    padding-left: 120px;
+    padding-right: 20px;
+    margin-right: 10px;
+}
+
+.barcodeInputBox {
+    width: 0px;
+    height: 0px;
+    margin: 0;
+    padding: 0;
+    transform: translate(-100%, -100%);
 }
