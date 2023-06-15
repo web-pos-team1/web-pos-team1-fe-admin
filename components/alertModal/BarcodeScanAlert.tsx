@@ -1,25 +1,41 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import style from './OrderCancleAlert.module.css';
+import React, { useEffect, useState, Dispatch, SetStateAction, useRef } from 'react';
+import style from './BarcodeScanAlert.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
 
-export default function OrderCancleAlertModal(props:
-    { show:boolean, 
-      onClose:Dispatch<SetStateAction<boolean>>,
-      mUid: string,
-      onOpen: Dispatch<SetStateAction<boolean>>,
+export default function BarcodeScaneAlertModal(
+    props: { 
+        show:boolean, 
+        onClose:Dispatch<SetStateAction<boolean>>,
+        setMuid: Dispatch<SetStateAction<string>>,
+        onOpen: Dispatch<SetStateAction<boolean>>,
     }) {
+    
+    const [barcode, setBarcode] = useState<string>('');
+    const ref = useRef<HTMLInputElement>(null);
 
     if(!props.show) return null
     const handleYesClick = () => {
         console.log("yes clicked!!")
-        props.onOpen(true);
         props.onClose(false);
     }
     const handleNoClick = () => {
         console.log("no clicked!");
         props.onClose(false);
+    }
+    const handleBarcodeScan = (e: any) => {
+        console.log("e.target.value: ", e.target.value);
+        const orderMuid = e.target.value;
+        setBarcode(e.target.value);
+        if (orderMuid.length === 18) {
+            e.target.value = '';
+            console.log("18/orderMuid: ", orderMuid);
+
+            props.setMuid(orderMuid);
+            props.onOpen(true);
+            props.onClose(false);
+        }
     }
     return (
         <div className={style.overlay}>
@@ -42,15 +58,19 @@ export default function OrderCancleAlertModal(props:
                 </div>
 
                 <div className={style.bodyFirst}>
-                <p>mUid: {props.mUid}</p>
+                <p>전자영수증을 스캔해주세요</p>
                 </div>
-                <div className={style.bodySecond}>
-                     <p> 해당 주문을 취소하시겠습니까?</p>
-                </div>
+                <input className={style.barcodeInputBox} value={barcode} onChange={handleBarcodeScan} ref={ref} autoFocus />
+                {/* <div className={style.bodySecond}>
+                    <div className={style.mUidLabel}>
+                        mUid:
+                    </div>
+                    //                     
+                </div> */}
 
-                <div className={style.footer}>
+                {/* <div className={style.footer}> */}
                 
-                    <button>
+                    {/* <button>
                         <Image
                             src="/images/checkWhite.png"
                             alt="confirm"
@@ -74,9 +94,9 @@ export default function OrderCancleAlertModal(props:
                         <p onClick={handleNoClick}>
                             아니오
                         </p>
-                    </button>
+                    </button> */}
 
-                </div>
+                {/* </div> */}
             </div>
         </div>
     )
