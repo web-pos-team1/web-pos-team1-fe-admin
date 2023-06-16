@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styles from './recipt.module.css';
+import styles from './cancel-recipt.module.css';
 import axios from "axios";
 import JsBarcode from "jsbarcode";
 import { mapToBE } from "@/globalFunction/mapToBE";
+import { useRouter } from "next/router";
 export default function Recipt() {
 
   const [mUid, setMUid] = useState<string>('202306161014280201');
@@ -25,10 +26,15 @@ export default function Recipt() {
   const [cardName, setCardName] = useState<string>('');
   const [cardNumber, setCardNumber] = useState<string>('');
 
+  const router = useRouter();
 
+  
   useEffect(() => {
     // const url = mapToBE(`/api/v1/manager/orders-detail?merchantUid=${mUid}`);
-    const url = `http://localhost:8080/api/v1/manager/order-cancel2?merchantUid=${mUid}`;
+    console.log("router.query.mUid: ", router.query.mUid);
+    // const url = `http://localhost:8080/api/v1/manager/order-cancel2?merchantUid=${router.query.mUid}`;
+    const url = mapToBE(`/api/v1/manager/order-cancel2?merchantUid=${router.query.mUid}`);
+    setMUid(router.query.mUid);
     axios.get(url)
       .then((res) => {
         const { orderDate,
@@ -52,14 +58,20 @@ export default function Recipt() {
         console.log("[mid]orderDate: ", orderDateList);
         const orderTimeList = orderDateList[1].split('.')[0].split(':');
         const orderHhMM = orderTimeList[0] + ":" + orderTimeList[1]; 
-
-
-        const cancelDateList = cancelDate.split('T');
+        const nowDate = new Date();
+        const canceledYear = nowDate.getFullYear();
+        const canceledMonth = Number(nowDate.getMonth()) + 1 < 10 ? "0" + (Number(nowDate.getMonth()) + 1) : Number(nowDate.getMonth()) + 1;
+        const canceledDate = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+        const canceledHours = nowDate.getHours() < 10 ? "0" + nowDate.getHours() : nowDate.getHours();
+        const canceledMinutes = nowDate.getMinutes() < 10 ? "0" + nowDate.getMinutes() : nowDate.getMinutes();
+        
+        const cancelDateList = cancelDate.toString().split('T');
         console.log("[mid]orderDate: ", cancelDateList);
         const cancelTimeList = orderDateList[1].split('.')[0].split(':');
         const cancelHhMM = cancelTimeList[0] + ":" + cancelTimeList[1]; 
         setOrderDate(orderDateList[0] + " " + orderHhMM);
-        setCancelDate(cancelDateList[0] + " " + cancelHhMM)
+        // setCancelDate(canceledYear + "-" + canceledMonth + "-" + canceledDate + " " + canceledHours + ":" + canceledMinutes)
+        setCancelDate(cancelDateList[0] + " " + cancelHhMM);
         setOrderSerialNumber(orderSerialNumber);
         setProductList(orderDetailProductResponseDTOList);
         setUserName(userName);
@@ -81,7 +93,7 @@ export default function Recipt() {
         width: 300,
         height: 60
       });
-  }, []);
+  }, [router.query]);
     return (
         <div className={styles.reciptWrapper}>
         <div className={styles.reciptContainer}>
@@ -134,12 +146,23 @@ export default function Recipt() {
               <tr>
                 <td className={styles.coupon} colSpan={2}>상품권 취소</td>
                 <td></td>
-                <td className={styles.coupon}><span>{couponUsePrice}</span></td>
+                <td className={styles.coupon}>
+                  <span>{
+                          couponUsePrice === 0 ? 0 : -couponUsePrice
+                        }
+                  </span>
+                </td>
               </tr>
               <tr>
                 <td className={styles.coupon} colSpan={2}>포인트 취소</td>
                 <td></td>
-                <td className={styles.coupon}><span>{pointUsePrice}</span></td>
+                <td className={styles.coupon}>
+                  <span>
+                    {
+                      pointUsePrice === 0 ? 0 : -pointUsePrice
+                    }
+                  </span>
+                </td>
               </tr>
               
             </tbody>

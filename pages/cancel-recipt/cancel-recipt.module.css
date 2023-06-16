@@ -24,6 +24,7 @@
 .header .cancel {
   font-size: 15px;
   text-align: end;
+  font-weight: bold;
 }
 
 .header .barcode {

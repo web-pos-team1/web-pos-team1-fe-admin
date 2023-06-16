@@ -2,6 +2,7 @@ import React, { useEffect, useState, Dispatch, SetStateAction, useRef } from 're
 import style from './BarcodeScanAlert.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import barcodeScanAnimatoin from '../../animation/barcode-scanner.gif';
 
 
 export default function BarcodeScaneAlertModal(
@@ -60,7 +61,16 @@ export default function BarcodeScaneAlertModal(
                 <div className={style.bodyFirst}>
                 <p>전자영수증을 스캔해주세요</p>
                 </div>
+                <div className={style.barcodeScanAnimation}>
+                    <Image 
+                        src={barcodeScanAnimatoin}
+                        alt="barcode sacn guide animation"
+                        width={300}
+                        height={200}
+                    />
+                </div>
                 <input className={style.barcodeInputBox} value={barcode} onChange={handleBarcodeScan} ref={ref} autoFocus />
+
                 {/* <div className={style.bodySecond}>
                     <div className={style.mUidLabel}>
                         mUid:
