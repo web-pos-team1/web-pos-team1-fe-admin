@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from 'chart.js';
-import styles from './hqSales.module.css';
+import styles from './hqSales.module.css'; // 이름이 달라져서 생긴 에러 해결
 import axios from 'axios';
 import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
-// import { CalendarComponent } from "../ToggleCalendar/Calendar";
-import { SettlementDataType } from "@/types/SettlementDataTyle";
-import { NextPageWithLayout } from "../_app";
-import Layout from "@/components/layouts/layout";
-import MainLayout from "@/components/layouts/mainLayout";
 
-const HqSales: NextPageWithLayout = () => {
+<<<<<<< HEAD
+interface SettlementDataType {
+    settlementDate: string, // 정산일자
+    storeName: string, // 가게이름
+    charge: number, // 수수료
+    settlementPrice: number, // 정산가격
+    originPrice: number, // 원가
+    profit:number, // 이익
+}
 
+export default function HqSales() {
+=======
     interface SettlementDataType {
         settlementDate: string, // 정산일자
         storeName: string, // 가게이름
@@ -22,6 +27,7 @@ const HqSales: NextPageWithLayout = () => {
         profit:number, // 이익
     }
 
+>>>>>>> eb8313c0e53ed725242bff13b482f8e4dd73f184
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
     const handleSalesManageBtnClick = () => {
         console.log("매출관리 clicked!!");
@@ -53,30 +59,41 @@ const HqSales: NextPageWithLayout = () => {
             handleClick: () => handleStockManageBtnClick()
         },
 
-    ];
-    const [value, setValue] = useState(new Date());
+    ]
+
+    // useEffect(() => {
+    //     const url = `http://localhost:4000/salesBarChartLabelList`
+    //     axios.get(url)
+    //     .then((res: any) => setSettlementDataList(res.data))
+    //     .catch((err: any) => console.log("err: ", err));
+    // }, [])
     useEffect(() => {
-        const url = `http://localhost:4000/salesBarChartLabelList`
-        axios.get(url)
-        .then((res: any) => setSettlementDataList(res.data))
-        .catch((err: any) => console.log("err: ", err));
-    }, [])
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0');
+            setSettlementDataList(response.data);
+          } catch (error) {
+            console.log('Error fetching settlement data:', error);
+          }
+        };
+
+        fetchData();
+      }, []);
+
     return (
         <div className={styles.pageWrapper}>
         <Sidebar />
         <div className={styles.sidebarRight}>
             <div>
-                <p>매출관리</p>
+                날짜선택
             </div>
-            {/* <CalendarComponent 
-            /> */}
             <div className={styles.chartContainer}>
                 <HqSalesBarChart />
                 <HqSalesPieChart />
             </div>
             <div className={styles.settlementDataListWrapper}>
-            
-                <div className={styles.settlementDataListTitle}>일일 정산 목록</div>
+
+                <div className={styles.settlementDataListTitle}>매출 목록</div>
                 <table className={styles.orderListTable}>
                     <thead className={styles.orderListHead}>
                         <tr>
@@ -95,7 +112,6 @@ const HqSales: NextPageWithLayout = () => {
                                     <td>{item.settlementDate}</td>
                                     <td>{item.storeName}</td>
                                     <td>{item.charge}</td>
-                                    <td>{item.charge}</td>
                                     <td>{item.settlementPrice}</td>
                                     <td>{item.originPrice}</td>                      
                                     <td>{item.profit}</td>
@@ -109,6 +125,9 @@ const HqSales: NextPageWithLayout = () => {
 
         </div>
     );
+<<<<<<< HEAD
+}
+=======
 }
 HqSales.getLayout = function getLayout(page:React.ReactNode) {
     return (
@@ -122,3 +141,4 @@ HqSales.getLayout = function getLayout(page:React.ReactNode) {
 }
 
 export default HqSales;
+>>>>>>> eb8313c0e53ed725242bff13b482f8e4dd73f184

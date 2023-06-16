@@ -5,6 +5,8 @@ import axios from 'axios';
 import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
+import { mapToBE } from "@/globalFunction/mapToBE";
+
 
 
         // let url = ''
