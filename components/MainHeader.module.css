@@ -6,7 +6,7 @@
 .header ul {
     display: flex;
     /* flex-shrink: 0; */
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-size: 30px;
     color: #E0C798;
@@ -27,7 +27,7 @@
 } */
 
 .header span {
-    width: 129px;
+    width: 99px;
     height: 40px;
     background-color: #E0C798;
     color: #4C304F;
@@ -35,14 +35,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 20px;
     margin-right: 1rem;
 }
 
 .name {
     color: white;
     font-size: 20px;
-    padding-left: 950px;
+    padding-left: 800px;
+    padding-right: 10px;
 }
 
 .ssg {

@@ -11,6 +11,7 @@ import BarcodeScaneAlertModal from "@/components/alertModal/BarcodeScanAlert";
 import CancelCheckAlertModal from "@/components/alertModal/CancelCheckAlertModal";
 import { NextPageWithLayout } from "../_app";
 import MainLayout from "@/components/layouts/mainLayout";
+import Image from "next/image";
 
 interface OrderDataType {
     charge: number,
@@ -21,6 +22,7 @@ interface OrderDataType {
     pointUsePrice: number,
     profit: number,
     serialNumber?: string,
+    merchantUid?: string,
     storeName: string,
     totalOriginPrice: number,
     totalPrice: number
@@ -75,8 +77,8 @@ const OrderList: NextPageWithLayout = () => {
 
     const [date, setDate] = useState<string>('1week'); // 1week, 1month, 3month, term(기간별)
     const [storeId, setStoreId] = useState<number>(0);
-    const [startDate, setStartDate] = useState<string>('0');
-    const [endDate, setEndDate] = useState<string>('0');
+    const [startDate, setStartDate] = useState<string>('2023-06-09');
+    const [endDate, setEndDate] = useState<string>('2023-06-16');
 
     const [orderDataList, setOrderDataList] = useState<OrderDataType[]>([]);
     const [storeList, setStoreList] = useState<StoreType[]>([]); // ['강남점', '광주신세계' ...]
@@ -174,7 +176,7 @@ const OrderList: NextPageWithLayout = () => {
         if(ref.current) {
             ref.current.focus();
         }
-        const url = mapToBE(`/api/v1/hq/sale-management/list-orders/date=${date}/storeId=${storeId}/startDate=${startDate}/endDate=${endDate}`);
+        const url = mapToBE(`/api/v1/hq/sale-management/list-orders/date=${date}/storeId=${storeId}/startDate=0/endDate=0`);
         // const url = `http://localhost:8080/api/v1/hq/sale-management/list-orders/date=${date}/storeId=${storeId}/startDate=${startDate}/endDate=${endDate}`;
         axios.get(url)
         .then((res) => {
@@ -252,7 +254,7 @@ const OrderList: NextPageWithLayout = () => {
                             }
                         </ul>
                     </div>
-                    <div className={styles.termListWrapper}>
+                    <div className={styles.storeListWrapper}>
                         <ul>
                             {
                                 termList.map((term: TermType, index: number) => (
@@ -261,18 +263,32 @@ const OrderList: NextPageWithLayout = () => {
                                     </li>
                                 ))
                             }
-                            {/* <div className={styles.calendarInputBoxWrapper}>
+                            
                                 
-                                <li className={styles.calendarStartDateInputBox}>
-                                    <input type="text" value={startDate} onChange={handleStartDateChange} />
-                                </li>
-                                <li className={styles.calendarCenter}>
-                                ~
-                                </li>
-                               <li className={styles.calendarEndDateInputBox}>
-                                    <input type="text" value={endDate} onChange={handleEndDateChange} />
-                                </li>
-                            </div> */}
+                            <li className={styles.calendarStartDateInputBox}>
+                                    <Image
+                                    src="/images/calendar.png"
+                                    alt="cancel"
+                                    className={styles.calendarIcon}
+                                    width={20}
+                                    height={20}
+                                />
+                                <input type="text" size={10} value={startDate} onChange={handleStartDateChange} />
+                            </li>
+                            <li className={styles.calendarCenter}>
+                            ~
+                            </li>
+                            <li className={styles.calendarEndDateInputBox}>
+                            <Image
+                                    src="/images/calendar.png"
+                                    alt="cancel"
+                                    className={styles.calendarIcon}
+                                    width={20}
+                                    height={20}
+                                />
+                                <input type="text" size={10} value={endDate} onChange={handleEndDateChange} />
+                            </li>
+                            
                             
                             
                         </ul>
@@ -308,12 +324,12 @@ const OrderList: NextPageWithLayout = () => {
                         </thead>
                         <tbody>
                             {
-                                orderDataList.map((item, index) => {
+                                orderDataList && orderDataList.map((item: OrderDataType, index) => {
                                     if (item.orderStatus === 'SUCCESS') {
                                         return(
                                             <tr key={index} className={styles.orderListBody}>
                                             <td>
-                                                {item.serialNumber}
+                                                {item.merchantUid}
                                             </td>
                                             {/* <td>{item.storeName}</td> */}
                                             <td>
@@ -354,7 +370,7 @@ const OrderList: NextPageWithLayout = () => {
                                     } else {
                                         return(
                                             <tr key={index} className={styles.orderListBody}>
-                                            <td>{item.serialNumber}</td>
+                                            <td>{item.merchantUid}</td>
                                             {/* <td>{item.storeName}</td> */}
                                             <td>
                                                 {convertToYYYYMMDD_HHMMSS(item.orderDate)}
