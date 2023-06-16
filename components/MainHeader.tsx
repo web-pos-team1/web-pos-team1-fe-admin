@@ -41,13 +41,13 @@ export default function MainHeader(props: {
                     />
                 </li>
 
-                <li>
+                <li className={style.ssg}>
                     신세계
                 </li>
-
                 <li className={style.name}>
                     {indicateName}
                 </li>
+                
                 <li>
                     <span>로그아웃</span>
                 </li>

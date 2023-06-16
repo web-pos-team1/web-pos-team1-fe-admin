@@ -5,7 +5,7 @@ import JsBarcode from "jsbarcode";
 import { mapToBE } from "@/globalFunction/mapToBE";
 import { useRouter } from "next/router";
 export default function Recipt() {
-  const [mUid, setMUid] = useState<string>('202306141015170201');
+  const [mUid, setMUid] = useState<string>('202306141120440201');
   const [orderDate, setOrderDate] = useState<string>('');
   const [orderSerialNumber, setOrderSerialNumber] = useState<string>('');
   const [productList, setProductList] = useState<any[]>([]);
