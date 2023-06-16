@@ -5,19 +5,10 @@ import axios from 'axios';
 import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
-
-<<<<<<< HEAD
-interface SettlementDataType {
-    settlementDate: string, // 정산일자
-    storeName: string, // 가게이름
-    charge: number, // 수수료
-    settlementPrice: number, // 정산가격
-    originPrice: number, // 원가
-    profit:number, // 이익
-}
+import MainLayout from "@/components/layouts/mainLayout";
 
 export default function HqSales() {
-=======
+
     interface SettlementDataType {
         settlementDate: string, // 정산일자
         storeName: string, // 가게이름
@@ -26,8 +17,6 @@ export default function HqSales() {
         originPrice: number, // 원가
         profit:number, // 이익
     }
-
->>>>>>> eb8313c0e53ed725242bff13b482f8e4dd73f184
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
     const handleSalesManageBtnClick = () => {
         console.log("매출관리 clicked!!");
@@ -125,9 +114,6 @@ export default function HqSales() {
 
         </div>
     );
-<<<<<<< HEAD
-}
-=======
 }
 HqSales.getLayout = function getLayout(page:React.ReactNode) {
     return (
@@ -139,6 +125,3 @@ HqSales.getLayout = function getLayout(page:React.ReactNode) {
         </MainLayout>
     )
 }
-
-export default HqSales;
->>>>>>> eb8313c0e53ed725242bff13b482f8e4dd73f184

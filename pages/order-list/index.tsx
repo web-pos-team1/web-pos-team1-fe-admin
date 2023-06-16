@@ -185,17 +185,19 @@ const OrderList: NextPageWithLayout = () => {
             console.log("err: ", err);
         })
 
-        const url_storeList = `http://localhost:8080/api/v1/manager/store-name`;
+        // const url_storeList = `http://localhost:8080/api/v1/manager/store-name`;
+        const url_storeList = mapToBE(`/api/v1/manager/store-name`);
         axios.get(url_storeList)
         .then((res) => {
             console.log("res2: ", res);
-            setStoreList(res.data);
+            // setStoreList(res.data);
             let aStoreStateList: boolean[] = [];
             for (let i = 0; i < res.data.length; i++) {
                 if (res.data[i].storeName === '센텀시티점'){
                     aStoreStateList.push(true);
+                    setStoreList([res.data[i]]);
                 } else {
-                    aStoreStateList.push(false);
+                    // aStoreStateList.push(false);
                 }
                 setActiveStoreState([...aStoreStateList]);
             }
