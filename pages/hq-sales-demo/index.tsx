@@ -6,7 +6,6 @@ import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
 import { mapToBE } from "@/globalFunction/mapToBE";
-import DownloadButton from "../button";
 
 interface SettlementDataType {
     settlementDate: string, // 정산일자
