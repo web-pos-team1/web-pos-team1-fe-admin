@@ -171,19 +171,18 @@ import { mapToBE } from "@/globalFunction/mapToBE";
                 {term.name}
               </li>
             ))}
-            <div className={styles.calendarInputBoxWrapper}>
+            {/* <div className={styles.calendarInputBoxWrapper}>
               <li className={styles.calendarStartDateInputBox}>
                 <input type="text" value={startDate} onChange={handleStartDateChange} />
               </li>
               <li className={styles.calendarEndDateInputBox}>
                 <input type="text" value={endDate} onChange={handleEndDateChange} />
               </li>
-            </div>
+            </div> */}
           </ul>
         </div>
                 <div className={styles.chartContainer}>
                     <HqSalesBarChart />
-                    
                 </div>
              
                 <div className={styles.settlementDataListWrapper}>

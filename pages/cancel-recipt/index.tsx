@@ -4,7 +4,8 @@ import axios from "axios";
 import JsBarcode from "jsbarcode";
 import { mapToBE } from "@/globalFunction/mapToBE";
 export default function Recipt() {
-  const [mUid, setMUid] = useState<string>('202306151605010201');
+
+  const [mUid, setMUid] = useState<string>('202306161014280201');
   const [orderDate, setOrderDate] = useState<string>('');
   const [cancelDate, setCancelDate] = useState<string>('');
   const [orderSerialNumber, setOrderSerialNumber] = useState<string>('');
@@ -101,10 +102,10 @@ export default function Recipt() {
                 {/* <div className={styles.ceoName}>손영식</div> */}
             </div>
             <div className={styles.orderInfo}>
-                <div className={styles.orderDate}>구매: 2023-06-14 02:21</div>
+                <div className={styles.orderDate}>구매: {orderDate}</div>
                 <div className={styles.orderSerialNumber}>거래번호: {orderSerialNumber}</div>
             </div>
-            <div className={styles.cancelDate}>취소: 2023-06-15 11:12</div>
+            <div className={styles.cancelDate}>취소: {cancelDate}</div>
            
           </div>
           <table className={styles.receiptTable}>
@@ -120,15 +121,15 @@ export default function Recipt() {
             {productList && productList.map((product, index) => (
                 <tr key={index}>
                   <td>{product.productName}</td>
-                  <td>{product.productSalePrice}</td>
-                  <td className={styles.qty}>{product.cartQty}</td>
-                  <td>{product.productSalePrice * product.cartQty}</td>
+                  <td>-{product.productSalePrice}</td>
+                  <td className={styles.qty}>-{product.cartQty}</td>
+                  <td>-{product.productSalePrice * product.cartQty}</td>
                 </tr>
               ))}
                <tr>
                 <td className={styles.sum} colSpan={2}>합  계</td>
                 <td></td>
-                <td className={styles.sum}><span>{totalPrice}</span></td>
+                <td className={styles.sum}><span>-{totalPrice}</span></td>
               </tr>
               <tr>
                 <td className={styles.coupon} colSpan={2}>상품권 취소</td>
@@ -146,12 +147,12 @@ export default function Recipt() {
               <tr>
                 <td colSpan={2}>과세물품가액</td>
                 <td></td>
-                <td><span>{productPrice}</span></td>
+                <td><span>-{productPrice}</span></td>
               </tr>
               <tr className={styles.dashedLine}>
                 <td colSpan={2}>부가세</td>
                 <td></td>
-                <td><span>{vat}</span></td>
+                <td><span>-{vat}</span></td>
               </tr>
             </tfoot>
           </table>
@@ -160,7 +161,7 @@ export default function Recipt() {
             <tbody>
               <tr className={styles.finalTotalPrice}>
                 <td>카드결제액</td>
-                <td><span>{finalTotalPrice}</span></td>
+                <td><span>-{finalTotalPrice}</span></td>
               </tr>
               <tr className={styles.card}>
                 <td>{cardName}</td>
