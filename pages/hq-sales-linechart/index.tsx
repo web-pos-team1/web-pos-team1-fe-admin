@@ -13,12 +13,13 @@ export default function HqSalesBarChart() {
     const [inputEndDate,setInputEndDate] = useState<string>('');
     const [startDate, setStartDate] = useState<string>('0'); // 2023-12-20
     const [endDate, setEndDate] = useState<string>('0');
-    
+    const [storeId, setStoreId] = useState<string>('0');    
+
 
     // 전체 조회 일주일
     const handle1WeekBtnClick = () => {
         // const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=1week/startDate=0/endDate=0`;
-        const url = mapToBE(`/api/v1/hq/sale-management/storeId=0/date=1week/startDate=0/endDate=0`);
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=${storeId}/date=1week/startDate=0/endDate=0`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);

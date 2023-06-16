@@ -5,24 +5,26 @@
 
 .header ul {
     display: flex;
+    /* flex-shrink: 0; */
     justify-content: space-between;
     align-items: center;
     font-size: 30px;
     color: #E0C798;
     padding: 5px 0;
+    /* width: 200px; */
 }
 
 .header li {
     list-style: none;
 }
 
-.header li:first-child {
+/* .header li:first-child {
     margin-left: 1rem;
 }
 
 .header li:nth-child(2) {
     margin-right: 54rem;
-}
+} */
 
 .header span {
     width: 129px;
@@ -35,4 +37,14 @@
     align-items: center;
     font-size: 25px;
     margin-right: 1rem;
+}
+
+.name {
+    color: white;
+    font-size: 20px;
+    padding-left: 950px;
+}
+
+.ssg {
+    /* transform: translate(-180%, 0%); */
 }

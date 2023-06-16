@@ -3,7 +3,7 @@
     padding: 12px;
     background-color: #4C304F;
     height: 100%;
-    width: 100px;
+    width: 120px;
     left: -1%;
     top: 0;
     /* position: fixed; */
@@ -24,4 +24,26 @@
     justify-content: center;
     text-decoration: none;
     padding: 10px 0;
+}
+
+li.active {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 0;
+    background-color: #E0C798;
+    color: black;
+    font-weight: bold;
+    border-radius: 20px;
+    width: 120px;
+}
+
+li.deactive {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 0;
+    /* background-color: #56565B; */
+    color: white;
+    width: 120px;
 }

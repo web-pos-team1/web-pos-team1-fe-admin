@@ -20,10 +20,6 @@ export default function Header() {
                 <li>
                     신세계
                 </li>
-
-                <li>
-                    Headquarter
-                </li>
             </ul>
         </header>
 )
