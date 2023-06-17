@@ -18,8 +18,6 @@ export default function HqSalesPieChart() {
     const [inputEndDate, setInputEndDate] = useState<string>('');
 
     const handle1WeekBtnClick = () => {
-        // mapToBE(``)
-        // const url = `/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
         const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`);
         // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`;
     
