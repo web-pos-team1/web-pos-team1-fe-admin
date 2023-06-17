@@ -253,9 +253,6 @@ const OrderList: NextPageWithLayout = () => {
                                 />
                                 <input type="text" size={10} value={endDate} onChange={handleEndDateChange} />
                             </li>
-                            
-                            
-                            
                         </ul>
                     </div>
                     <div className={styles.settlementDataListWrapper}>

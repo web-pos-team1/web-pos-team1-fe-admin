@@ -19,12 +19,13 @@ export default function HqSalesBarChart(
     props: HqSalesBarChartProps
 ) {
     const [barData, setBarData] = useState<BarData[]>([]);
-    const [inputStartDate, setInputStartDate] = useState<string>('');
-    const [inputEndDate,setInputEndDate] = useState<string>('');
+    const [inputStartDate, setInputStartDate] = useState<string>('0');
+    const [inputEndDate,setInputEndDate] = useState<string>('0');
     const [chartDate,setChartDate] = useState<string>('');
     const [startDate, setStartDate] = useState<string>('0'); // 2023-12-20
     const [endDate, setEndDate] = useState<string>('0');
-    const [storeId, setStoreId] = useState<number>(0);    
+    const [storeId, setStoreId] = useState<number>(0);  
+    const [date, setDate] = useState<string>('1month'); // 1week, 1month, 3month  
     
     const urlTotal = mapToBE(`/api/v1/hq/sale-management/storeId=${props.storeId}/date=${props.chartDate}/startDate=${props.startDate}/endDate=${props.endDate}`);
     
@@ -80,7 +81,7 @@ export default function HqSalesBarChart(
 
     const handleSearchBtnClick = () => {
         // const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`;
-        const url = mapToBE(`/api/v1/hq/sale-management/storeId=0/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`);
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=2/date=term/startDate=${inputStartDate}/endDate=${inputEndDate}`);
         axios.get(url)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -97,13 +98,17 @@ export default function HqSalesBarChart(
 
     useEffect(() => {
 
-        var ctx = document.getElementById('salesBarChartWithPeriod').getContext('2d');
-        var myChart = new Chart(ctx, {
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=2/date=${date}/startDate=${inputStartDate}/endDate=${inputEndDate}`);
+        axios.get(url)
+        .then((res: any) => {
+            console.log("res: ", res);
+            var ctx = document.getElementById('salesBarChartWithPeriod').getContext('2d');
+            var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: barData.map(data => data.settlementDayDate), // String에서 string으로 변경하니 에러 없어짐
+                labels: res.data.map((data: any) => data.settlementDayDate) ,//barData.map(data => data.settlementDayDate), // String에서 string으로 변경하니 에러 없어짐
                 datasets: [{
-                    data: barData.map(data => data.settlementDaySettlementPrice),
+                    data:  res.data.map((data: any) => data.settlementDaySettlementPrice),// barData.map(data => data.settlementDaySettlementPrice),
                     label: '매출',
                     borderColor: "rgb(109, 253, 181)",
                     backgroundColor: "rgb(109, 253, 181,0.5)",
@@ -114,10 +119,14 @@ export default function HqSalesBarChart(
             options: {
                 responsive: true, // 기존에 원래 있던 것
                 parsing: false, // 새로 추가한 것
-                animation: false,
-                hover: {
-                    mode: 'label'
+                legend: {
+                    display: false
                 },
+                animation: false,
+                // label:false,
+                // hover: {
+                //     mode: 'label'
+                // },
                 scales: {
                     xAxes: [{
                             display: true,
@@ -133,45 +142,15 @@ export default function HqSalesBarChart(
                         }]
                 }
             }
+        })
         });
     }, [barData]) // 원래 []이었는데 []안에 barData 넣으니까 해결됨
     return (
         <>
             <div className={styles.chartWrapper}>
-                <p>매출 추이</p>
-                <button onClick={handle1WeekBtnClick}>
-                    </button>
-                {/* <button onClick={handle1WeekBtnClick}>
-                    1주일
-                </button>
-                <button onClick={handle1MonthBtnClick}>
-                    1개월
-                </button>
-                <button onClick={handle3MonthBtnClick}>
-                    3개월
-                </button> */}
-                <br/>
-
-                <input value={inputStartDate}
-                //  placeholder="시작날짜(ex.2023-01-04)" 
-                onChange={handleStartDateChange} 
-                type="text"/>
-                
-                <p>~</p>
-                
-                <input value={inputEndDate} 
-                // placeholder="끝날짜(ex.2023-01-04)" 
-                onChange={handleEndDateChange} 
-                type="text"/>
-                
-                <span>
-                <button onClick={handleSearchBtnClick}>
-                    검색
-                </button>
-                </span>
-
+                <div className={styles.chartTitle}>매출 추이</div>
                 <div className={styles.chartContent}>
-                  <canvas id='salesBarChartWithPeriod'></canvas>  
+                  <canvas id='salesBarChartWithPeriod' className={styles.lineChartData}></canvas>  
                 </div>
             </div>
         </>

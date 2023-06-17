@@ -9,13 +9,17 @@ interface ChartData {
     settlementPrice: number;
 }
 
-export default function HqSalesPieChart() {
+export default function HqSalesPieChart(
+    props: {
+        date?: string
+    }
+) {
     const [chartData, setChartData] = useState<ChartData[]>([]);
     const [date, setDate] = useState<string>('1week'); //
     const [startDate, setStartDate] = useState<string>('0'); // 2023-12-20
     const [endDate, setEndDate] = useState<string>('0');
-    const [inputStartDate, setInputStartDate] = useState<string>('');
-    const [inputEndDate, setInputEndDate] = useState<string>('');
+    const [inputStartDate, setInputStartDate] = useState<string>('0');
+    const [inputEndDate, setInputEndDate] = useState<string>('0');
 
     const handle1WeekBtnClick = () => {
         const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${startDate}/endDate=${endDate}`);
@@ -79,61 +83,65 @@ export default function HqSalesPieChart() {
 
     useEffect(() => {
         const updateChart = () => {
-            var ctx = document.getElementById('salesPieChartEachStore').getContext('2d'); // 이건 고려하지 않아도 되는 에러
-            var myChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: chartData.map(data => data.storeName),
-                    datasets: [{
-                        data: chartData.map(data => data.settlementPrice),
-                        borderColor: [
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-                            "#FFFFFF",
-
-                        ],
-                        backgroundColor: [
-                            "#404040",
-                            "#2E8B57",
-                            "#000080",
-                            "#800080",
-                            "#FFFF00",
-                            "#FFA500",
-                            "#FF0000",
-                            "#FFC0CB",
-                            "#87CEEB",
-                            "#808080",
-                            "#00FF00",
-                            "#008000",
-                            "#FFFFFF",
-                        ],
-                        borderWidth: 2,
-                    }]
-                },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            display: false,
-                        }],
-                        yAxes: [{
-                            display: false,
-                        }],
-                    }
-                },
-            });
-        };
-
+            const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${inputStartDate}/endDate=${inputEndDate}`);
+            axios.get(url)
+            .then((res: any) => {
+                console.log("res: ", res);
+                var ctx = document.getElementById('salesPieChartEachStore').getContext('2d'); // 이건 고려하지 않아도 되는 에러
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: res.data.map((data: any) => data.storeName),// chartData.map(data => data.storeName),
+                        datasets: [{
+                            data: res.data.map((data: any) => data.settlementPrice),// chartData.map(data => data.settlementPrice),
+                            borderColor: [
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+                                "#FFFFFF",
+    
+                            ],
+                            backgroundColor: [
+                                "#404040",
+                                "#2E8B57",
+                                "#000080",
+                                "#800080",
+                                "#FFFF00",
+                                "#FFA500",
+                                "#FF0000",
+                                "#FFC0CB",
+                                "#87CEEB",
+                                "#808080",
+                                "#00FF00",
+                                "#008000",
+                                "#FFFFFF",
+                            ],
+                            borderWidth: 2,
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                display: false,
+                            }],
+                            yAxes: [{
+                                display: false,
+                            }],
+                        }
+                    },
+                })
+            })
+            };
         updateChart();
     }, [chartData]);
 
@@ -142,24 +150,7 @@ export default function HqSalesPieChart() {
             {/* Pie chart */}
             <div className={styles.chartWrapper}>
                 <p>지점별 매출분포</p>
-                <button onClick={handle1WeekBtnClick}>
-                    1주일
-                </button>
-                <button onClick={handle1MonthBtnClick}>
-                    1개월
-                </button>
-                <button onClick={handle3MonthBtnClick}>
-                    3개월
-                </button>
-                <br/>
-                <input value={inputStartDate} placeholder="시작날짜(ex.2023-01-04)" onChange={handleStartDateChange} type="text"/>
-                <input value={inputEndDate} placeholder="끝날짜(ex.2023-01-04)" onChange={handleEndDateChange} type="text"/>
-                <button onClick={handleSearchBtnClick}>
-                    검색
-                </button>
-                <div className={styles.chartContent}>
-                    <canvas id='salesPieChartEachStore'></canvas>
-                </div>
+                <canvas id='salesPieChartEachStore' className={styles.pieChartContent}></canvas>
             </div>
         </>
     );

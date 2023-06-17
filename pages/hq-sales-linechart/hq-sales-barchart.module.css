@@ -9,6 +9,12 @@
     /* display: flex; */
     /* background-color: #FFFFFF; */
 }
+.chartTitle {
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    padding-bottom: 7px;
+}
 
 .chartContent {
     padding-top: 0;
@@ -45,6 +51,7 @@
 
 .chartWrapper p {
     padding : 0 5px;
+    /* padding-bottom: 7px; */
     color: black;
 }
 
@@ -55,4 +62,10 @@
 
 .chartWrapper span button {
     background-color: #E0C798;
+}
+
+.lineChartData {
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
 }

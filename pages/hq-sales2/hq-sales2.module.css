@@ -1,0 +1,178 @@
+.chartContainer {
+    display: flex;
+    height: 200px;
+}
+/* .menuWrapper {
+    display: flex;
+    text-decoration: none;
+    padding: 2px;
+    list-style: none;
+}
+.menu {
+    text-decoration: none;
+    padding-right: 5px;
+    border: 1px solid;
+} */
+.orderListTable {
+    background-color: white;
+}
+.orderListHead {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid;
+    font-size: 12px;
+}
+.orderListHead th {
+    padding: 12px 0;
+    padding-right: 7px;
+}
+.orderListHead td {
+    padding: 12px 0;
+}
+.orderListBody {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.sidebarRight {
+    width: 1400px;
+    padding-left: 20px;
+    height: 100%;
+}
+
+.sidebarRight p {
+    font-size: 15px;
+    color : #FFFFFF;
+}
+
+.pageWrapper {
+    display: flex;
+    height: 100%;
+    background-color: #56565B;
+}
+
+.settlementDataListWrapper {
+    padding-top: 50px;
+}
+
+li.active {
+    background-color: #4C304F;
+    color: white;
+}
+
+li.deactive {
+    background-color: #56565B;
+    color: gray;
+}
+
+.storeListWrapper {
+    width: 100%;
+    height: 60px;
+    /* background-color: #56565B; */
+    background-color: white;
+    color: #989DA1;
+    align-items: center;
+    border-radius: 14px;
+    margin-top: 20px;
+    margin-left: 12px;
+    /* margin-bottom: 37px; */
+}
+
+.storeListWrapper ul {
+    display: flex;
+    font-size: 13px;
+    /* justify-content: center;
+    align-items: center; */
+    padding-left: 10px;
+
+}
+
+.storeListWrapper ul li {
+    list-style: none;
+    /* margin: 15px 0; */
+    margin-top: 10px;
+    /* font-weight: 500; */
+    /* justify-content: space-around; */
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+    height: 43px;
+    display: flex;
+    border-radius: 20px;
+    margin-right: 5px;
+    
+}
+
+
+.termListWrapper {
+    width: 100%;
+    height: 70px;
+    /* background-color: #56565B; */
+    background-color: white;
+    color: #989DA1;
+    align-items: center;
+    border-radius: 14px;
+    margin-top: 20px;
+    margin-left: 12px;
+}
+
+.termListWrapper ul {
+    display: flex;
+    font-size: 23px;
+    /* justify-content: center;
+    align-items: center; */
+    padding-left: 10px;
+}
+
+.termListWrapper ul li {
+    list-style: none;
+    margin: 15px 0;
+    font-weight: 500;
+    /* justify-content: space-around; */
+    justify-content: center;
+    align-items: center;
+    width: 115px;
+    height: 43px;
+    border-radius: 20px;
+    display: flex;
+    margin-right: 5px;
+}
+
+
+.startDateInputLabel {
+    font-size: 14px;
+    /* width: 200px; */
+    color: black;
+    padding-top: 40px;
+} 
+
+.calendarInputBoxWrapper {
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.calendarStartDateInputBox {
+    margin-left: 20px;
+    padding-left: 150px;
+    /* padding-right: 20px; */
+    /* margin-right: 10px; */
+    /* padding-right: 10px; */
+}
+
+.calendarEndDateInputBox {
+    /* margin-left: 20px; */
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
+    /* margin-right: 10px; */
+}
+
+.calendarCenter {
+    margin-left: 40px;
+    margin-right: 0px;
+    padding: 0px;
+}
+
+.calendarIcon {
+    margin-bottom: 5px;
+}
