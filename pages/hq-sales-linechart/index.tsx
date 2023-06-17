@@ -7,20 +7,31 @@ interface BarData { // 이름은 BarData지만 LineData를 나타낸다.
     settlementDayDate: string;
     settlementDaySettlementPrice: number;
 }
-export default function HqSalesBarChart() {
+
+interface HqSalesBarChartProps {  
+    chartDate: string,
+    storeId: number;
+    startDate: string;
+    endDate: string;
+}
+
+export default function HqSalesBarChart(
+    props: HqSalesBarChartProps
+) {
     const [barData, setBarData] = useState<BarData[]>([]);
     const [inputStartDate, setInputStartDate] = useState<string>('');
     const [inputEndDate,setInputEndDate] = useState<string>('');
+    const [chartDate,setChartDate] = useState<string>('');
     const [startDate, setStartDate] = useState<string>('0'); // 2023-12-20
     const [endDate, setEndDate] = useState<string>('0');
-    const [storeId, setStoreId] = useState<string>('0');    
-
-
-    // 전체 조회 일주일
+    const [storeId, setStoreId] = useState<number>(0);    
+    
+    const urlTotal = mapToBE(`/api/v1/hq/sale-management/storeId=${props.storeId}/date=${props.chartDate}/startDate=${props.startDate}/endDate=${props.endDate}`);
+    
+    // 실행되지 않았던 이유 : 클릭을 해야 실행되는 매서드만 있어서
     const handle1WeekBtnClick = () => {
-        // const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=0/date=1week/startDate=0/endDate=0`;
-        const url = mapToBE(`/api/v1/hq/sale-management/storeId=${storeId}/date=1week/startDate=0/endDate=0`);
-        axios.get(url)
+        // const url = mapToBE(`/api/v1/hq/sale-management/storeId=${storeId}/date=${date}/startDate=${startDate}/endDate=${endDate}`);
+        axios.get(urlTotal)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
             setBarData(res.data);
@@ -128,7 +139,11 @@ export default function HqSalesBarChart() {
         <>
             <div className={styles.chartWrapper}>
                 <p>매출 추이</p>
-                <button onClick={handle1WeekBytnClick}>
+
+                
+
+                {/* <button onClick={handle1WeekBtnClick}>
+
                     1주일
                 </button>
                 <button onClick={handle1MonthBtnClick}>
@@ -136,7 +151,7 @@ export default function HqSalesBarChart() {
                 </button>
                 <button onClick={handle3MonthBtnClick}>
                     3개월
-                </button>
+                </button> */}
                 <br/>
 
                 <input value={inputStartDate}
