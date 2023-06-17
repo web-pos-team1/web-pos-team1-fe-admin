@@ -5,19 +5,15 @@ import axios from 'axios';
 import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
+import MainLayout from "@/components/layouts/mainLayout";
 
-<<<<<<< HEAD
-interface SettlementDataType {
-    settlementDate: string, // 정산일자
-    storeName: string, // 가게이름
-    charge: number, // 수수료
-    settlementPrice: number, // 정산가격
-    originPrice: number, // 원가
-    profit:number, // 이익
-}
 
-export default function HqSales() {
-=======
+export default function HqSales(
+    // props: {date: string, storeId?: number, startDate: string, endDate: string }
+) { const [date, setDate] = useState<string>('');
+    const [storeId, setStoreId] = useState<number>(0);
+    const [startDate, setStartDate] = useState<string>('0'); // 기본 값 0, 기간별 조회를 할 때 yyyy-mm-dd 형식 입력
+    const [endDate, setEndDate] = useState<string>('0'); // 기본 값 0
     interface SettlementDataType {
         settlementDate: string, // 정산일자
         storeName: string, // 가게이름
@@ -26,8 +22,6 @@ export default function HqSales() {
         originPrice: number, // 원가
         profit:number, // 이익
     }
-
->>>>>>> eb8313c0e53ed725242bff13b482f8e4dd73f184
     const [settlementDataList, setSettlementDataList] = useState<SettlementDataType[]>([]);
     const handleSalesManageBtnClick = () => {
         console.log("매출관리 clicked!!");
@@ -88,8 +82,14 @@ export default function HqSales() {
                 날짜선택
             </div>
             <div className={styles.chartContainer}>
-                <HqSalesBarChart />
-                <HqSalesPieChart />
+                <HqSalesBarChart 
+                    date={date}
+                    storeId={storeId}
+                    startDate={startDate}
+                    endDate={endDate}
+                />
+                <HqSalesPieChart 
+                />
             </div>
             <div className={styles.settlementDataListWrapper}>
 
@@ -125,10 +125,8 @@ export default function HqSales() {
 
         </div>
     );
-<<<<<<< HEAD
 }
-=======
-}
+
 HqSales.getLayout = function getLayout(page:React.ReactNode) {
     return (
         <MainLayout
@@ -139,6 +137,3 @@ HqSales.getLayout = function getLayout(page:React.ReactNode) {
         </MainLayout>
     )
 }
-
-export default HqSales;
->>>>>>> eb8313c0e53ed725242bff13b482f8e4dd73f184

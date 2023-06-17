@@ -74,7 +74,7 @@ const OrderList: NextPageWithLayout = () => {
     const [state, setState] = useState<boolean>(false);
 
     const [date, setDate] = useState<string>('1week'); // 1week, 1month, 3month, term(기간별)
-    const [storeId, setStoreId] = useState<number>(0);
+    const [storeId, setStoreId] = useState<number>(2); // 
     const [startDate, setStartDate] = useState<string>('0');
     const [endDate, setEndDate] = useState<string>('0');
 
@@ -174,7 +174,7 @@ const OrderList: NextPageWithLayout = () => {
         if(ref.current) {
             ref.current.focus();
         }
-        const url = mapToBE(`/api/v1/hq/sale-management/list-orders/date=${date}/storeId=${storeId}/startDate=${startDate}/endDate=${endDate}`);
+        const url = mapToBE(`/api/v1/hq/sale-management/list-orders/date=1week/storeId=${storeId}/startDate=${startDate}/endDate=${endDate}`);
         // const url = `http://localhost:8080/api/v1/hq/sale-management/list-orders/date=${date}/storeId=${storeId}/startDate=${startDate}/endDate=${endDate}`;
         axios.get(url)
         .then((res) => {

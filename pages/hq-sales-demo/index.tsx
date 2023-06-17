@@ -6,6 +6,8 @@ import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
 import { mapToBE } from "@/globalFunction/mapToBE";
+import HqSalesBarChart1 from "../hq-sales-linechart-demo";
+import HqSalesPieChart1 from "../hq-sales-piechart-demo";
 
 
 
@@ -54,6 +56,8 @@ import { mapToBE } from "@/globalFunction/mapToBE";
         const [activeTermState, setActiveTermState] = useState<boolean[]>([]); // Add activeTermState state
         const [startDate, setStartDate] = useState<string>('0');
         const [endDate, setEndDate] = useState<string>('0');
+        const [chartDate, setChartDate] = useState("1week");
+        const [storeId, setStoreId] = useState(0);
         
         const handleSalesManageBtnClick = () => {
           console.log("매출관리 clicked!!");
@@ -93,6 +97,8 @@ import { mapToBE } from "@/globalFunction/mapToBE";
         useEffect(() => {
           const fetchStoreList = async () => {
             try {
+              const urlTotal = mapToBE(`/api/v1/hq/sale-management/storeId=${props.storeId}/date=${props.chartDate}/startDate=${props.startDate}/endDate=${props.endDate}`);
+
               const response = await axios.get('http://localhost:8080/api/v1/manager/store-name');
               const storeListData: StoreType[] = response.data;
               setStoreList(storeListData);
@@ -131,19 +137,79 @@ import { mapToBE } from "@/globalFunction/mapToBE";
             setActiveTermState([...activeTermState]);
     
         }
+
+        // 일주일 버튼
+        const handle1WeekBtnClick = () => {
+          setChartDate("1week");
+          setStartDate("0");
+          setEndDate("0");
+          setStoreId(0);
+        }
+
+        useEffect(() => {
+        }, [chartDate, startDate, endDate, storeId]);
+
+        // 1달 버튼
+        const handle1MonthBtnClick = () => {
+          setChartDate("1month");
+          setStartDate("0");
+          setEndDate("0");
+          setStoreId(0);
+          
+        }
+
+        useEffect(() => {
+          console.log(chartDate);
+          console.log(startDate);
+          console.log(endDate);
+          console.log(storeId);
+        }, [chartDate, startDate, endDate, storeId]);
+
+        // 3달 버튼
+        const handle3MonthBtnClick = () => {
+          setChartDate("3month");
+          setStartDate("0");
+          setEndDate("0");
+          setStoreId(0);
+        }
+
+        useEffect(() => {
+        }, [chartDate, startDate, endDate, storeId]);
+        // 기간별 버튼
+        
+        // 기존 코드 
+
+        // useEffect(() => {
+        //   const fetchData = async () => {
+        //     try {
+        //       const urlTotal = mapToBE(`/api/v1/hq/sale-management/list/date=${chartDate}/storeId=${chartDate}/startDate=${startDate}/endDate=${endDate}`);
+        //       const url = 'http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0'
+        //       const response = await axios.get('http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0');
+        //       setSettlementDataList(response.data);
+        //     } catch (error) {
+        //       console.log('Error fetching settlement data:', error);
+        //     }
+        //   };
       
+        //   fetchData();
+        // }, []);
+
+        // 기존 코드
+
         useEffect(() => {
           const fetchData = async () => {
             try {
-              const response = await axios.get('http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0');
+              const urlTotal = mapToBE(`/api/v1/hq/sale-management/list/date=${chartDate}/storeId=${storeId}/startDate=${startDate}/endDate=${endDate}`);
+              const response = await axios.get(urlTotal);
               setSettlementDataList(response.data);
             } catch (error) {
               console.log('Error fetching settlement data:', error);
             }
           };
-      
+        
           fetchData();
-        }, []);
+        }, [chartDate, startDate, endDate, storeId]);
+        
 
     return (
         <div className={styles.pageWrapper}>
@@ -172,20 +238,34 @@ import { mapToBE } from "@/globalFunction/mapToBE";
               </li>
             ))}
             <div className={styles.calendarInputBoxWrapper}>
-              <li className={styles.calendarStartDateInputBox}>
+            <div className={styles.buttonContainer}>
+              <span>
+                <button onClick={handle1WeekBtnClick}>1주일</button>
+              </span>
+              <span>
+                <button onClick={handle1MonthBtnClick}>1달</button>
+              </span>
+              <span>
+                <button onClick={handle3MonthBtnClick}>3달</button>
+              </span>
+              <span>
                 <input type="text" value={startDate} onChange={handleStartDateChange} />
-              </li>
-              <li className={styles.calendarEndDateInputBox}>
+              </span>
+              <span>
                 <input type="text" value={endDate} onChange={handleEndDateChange} />
-              </li>
+              </span>
+            </div>
             </div>
           </ul>
         </div>
                 <div className={styles.chartContainer}>
-                    <HqSalesBarChart />
-                    
+                    <HqSalesBarChart1
+                      chartDate={chartDate}
+                      storeId={storeId}
+                      startDate={startDate}
+                      endDate={endDate}
+                    />
                 </div>
-             
                 <div className={styles.settlementDataListWrapper}>
 
 
@@ -219,7 +299,12 @@ import { mapToBE } from "@/globalFunction/mapToBE";
                     </table>
                 </div>
                                 <div className={styles.piechartcontainer}>
-                    <HqSalesPieChart />
+                    <HqSalesPieChart1
+                    chartDate={chartDate}
+                    storeId={storeId}
+                    startDate={startDate}
+                    endDate={endDate}
+                    />
                     </div>
                     </div>
                     
