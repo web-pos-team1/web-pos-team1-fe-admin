@@ -13,45 +13,8 @@ import { NextPageWithLayout } from "../_app";
 import MainLayout from "@/components/layouts/mainLayout";
 import Image from "next/image";
 import { convertToYYYYMMDD_HHMMSS } from "@/globalFunction/convertToYYYYMMDD_HHMMSS";
-
-interface OrderDataType {
-    charge: number,
-    couponUsePrice: number,
-    orderDate: string,
-    orderStatus: string,
-    payMethod: string,
-    pointUsePrice: number,
-    profit: number,
-    serialNumber?: string,
-    merchantUid?: string,
-    storeName: string,
-    totalOriginPrice: number,
-    totalPrice: number
-}
-interface StoreType {
-    id: number,
-    storeName: string
-}
-
-interface TermType {
-    id: number,
-    name: string
-}
-
-const initStoreDataList = [
-    {
-        "id": 1,
-        "name": "강남점",
-    },
-    {
-        "id": 2,
-        "name": "경기점",
-    },
-    {
-        "id": 3,
-        "name": "광주신세계",
-    }
-];
+import { StoreType } from "@/types/StoreType";
+import { TermType } from "@/types/TermType";
 
 const initTermDataList = [
     {
@@ -119,7 +82,7 @@ const OrderList: NextPageWithLayout = () => {
     const handleEndDateChange = (e: any) => {
         setEndDate(e.target.value);
     }
-    const handleStoreBtnClick = (id:number) => {
+    const handleStoreBtnClick = (id: number) => {
         let selectedStoreId = 0;
         for (let i = 0; i < activeStoreState.length; i++) {
             if (id === i) {

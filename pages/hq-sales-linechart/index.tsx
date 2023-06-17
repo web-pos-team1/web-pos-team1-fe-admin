@@ -128,7 +128,7 @@ export default function HqSalesBarChart() {
         <>
             <div className={styles.chartWrapper}>
                 <p>매출 추이</p>
-                <button onClick={handle1WeekBytnClick}>
+                <button onClick={handle1WeekBtnClick}>
                     1주일
                 </button>
                 <button onClick={handle1MonthBtnClick}>
