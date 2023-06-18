@@ -73,8 +73,8 @@ export default function Receipt() {
         const cancelTimeList = orderDateList[1].split('.')[0].split(':');
         const cancelHhMM = cancelTimeList[0] + ":" + cancelTimeList[1]; 
         setOrderDate(orderDateList[0] + " " + orderHhMM);
-        // setCancelDate(canceledYear + "-" + canceledMonth + "-" + canceledDate + " " + canceledHours + ":" + canceledMinutes)
-        setCancelDate(cancelDateList[0] + " " + cancelHhMM);
+        setCancelDate(canceledYear + "-" + canceledMonth + "-" + canceledDate + " " + canceledHours + ":" + canceledMinutes)
+        // setCancelDate(cancelDateList[0] + " " + cancelHhMM);
         setOrderSerialNumber(orderSerialNumber);
         setProductList(orderDetailProductResponseDTOList);
         setUserName(userName);
