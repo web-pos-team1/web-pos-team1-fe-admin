@@ -1,33 +1,15 @@
 import React, { useEffect, useState } from "react";
-// import { Chart } from 'chart.js';
 import styles from './index.module.css';
 import axios from 'axios';
+import { Chart } from 'chart.js';
 import HqSalesBarChart from "../hq-sales-linechart";
 import HqSalesPieChart from "../hq-sales-piechart";
 import Sidebar from "../sidebar/Sidebar";
 import { mapToBE } from "@/globalFunction/mapToBE";
 import HqSalesBarChart1 from "../hq-sales-linechart-demo";
 import HqSalesPieChart1 from "../hq-sales-piechart-demo";
+import CSVDownloadButton from "../button2";
 
-
-
-        // let url = ''
-        // Object.entries(category_map).map(([key, value]) => {
-        //     if (value === id) {
-        //         url = `/products/` + key;
-        //     }
-        // })
-        
-
-        // **axios 호출 다시**
-    
-
-    // useEffect(() => {
-    //     const url = `http://localhost:4000/salesBarChartLabelList`
-    //     axios.get(url)
-    //     .then((res: any) => setSettlementDataList(res.data))
-    //     .catch((err: any) => console.log("err: ", err));
-    // }, [])
     interface SettlementDataType {
         settlementDate: string, // 정산일자
         storeName: string, // 가게이름
@@ -46,6 +28,8 @@ import HqSalesPieChart1 from "../hq-sales-piechart-demo";
       interface TermType {
         name: string;
       }
+
+      
       
       
       export default function HqSales() {
@@ -58,6 +42,8 @@ import HqSalesPieChart1 from "../hq-sales-piechart-demo";
         const [endDate, setEndDate] = useState<string>('0');
         const [chartDate, setChartDate] = useState("1week");
         const [storeId, setStoreId] = useState(0);
+        const [inputStartDate, setInputStartDate] = useState<string>('');
+        const [inputEndDate, setInputEndDate] = useState<string>('');
         
         const handleSalesManageBtnClick = () => {
           console.log("매출관리 clicked!!");
@@ -93,30 +79,6 @@ import HqSalesPieChart1 from "../hq-sales-piechart-demo";
             handleClick: handleStockManageBtnClick
           },
         ];
-      
-        useEffect(() => {
-          const fetchStoreList = async () => {
-            try {
-              const urlTotal = mapToBE(`/api/v1/hq/sale-management/storeId=${props.storeId}/date=${props.chartDate}/startDate=${props.startDate}/endDate=${props.endDate}`);
-
-              const response = await axios.get('http://localhost:8080/api/v1/manager/store-name');
-              const storeListData: StoreType[] = response.data;
-              setStoreList(storeListData);
-              const aStoreStateList: boolean[] = storeListData.map(store => store.storeName === '센텀시티점');
-              setActiveStoreState(aStoreStateList);
-            } catch (error) {
-              console.log('Error fetching store list:', error);
-            }
-          };
-      
-          fetchStoreList();
-        }, []);
-        const handleStartDateChange = (e: any) => {
-            setStartDate(e.target.value);
-        }
-        const handleEndDateChange = (e: any) => {
-            setEndDate(e.target.value);
-        }
       
         const handleStoreBtnClick = (id: number) => {
           const updatedStoreState = activeStoreState.map((state, index) => index === id);
@@ -158,13 +120,6 @@ import HqSalesPieChart1 from "../hq-sales-piechart-demo";
           
         }
 
-        useEffect(() => {
-          console.log(chartDate);
-          console.log(startDate);
-          console.log(endDate);
-          console.log(storeId);
-        }, [chartDate, startDate, endDate, storeId]);
-
         // 3달 버튼
         const handle3MonthBtnClick = () => {
           setChartDate("3month");
@@ -173,28 +128,27 @@ import HqSalesPieChart1 from "../hq-sales-piechart-demo";
           setStoreId(0);
         }
 
-        useEffect(() => {
-        }, [chartDate, startDate, endDate, storeId]);
         // 기간별 버튼
-        
-        // 기존 코드 
+        const handleTermBtnClick1 = () => {
+          setChartDate("term");
+          setStartDate("0");
+          setEndDate("0");
+          setStoreId(0);
+        }
 
-        // useEffect(() => {
-        //   const fetchData = async () => {
-        //     try {
-        //       const urlTotal = mapToBE(`/api/v1/hq/sale-management/list/date=${chartDate}/storeId=${chartDate}/startDate=${startDate}/endDate=${endDate}`);
-        //       const url = 'http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0'
-        //       const response = await axios.get('http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0');
-        //       setSettlementDataList(response.data);
-        //     } catch (error) {
-        //       console.log('Error fetching settlement data:', error);
-        //     }
-        //   };
-      
-        //   fetchData();
-        // }, []);
+        useEffect(() => {
+          console.log(chartDate);
+          console.log(startDate);
+          console.log(endDate);
+          console.log(storeId);
+        }, [chartDate, startDate, endDate, storeId]);
 
-        // 기존 코드
+        const handleStartDateChange = (e: any) => {
+          setStartDate(e.target.value);
+        }
+        const handleEndDateChange = (e: any) => {
+          setEndDate(e.target.value);
+        }
 
         useEffect(() => {
           const fetchData = async () => {
@@ -215,7 +169,7 @@ import HqSalesPieChart1 from "../hq-sales-piechart-demo";
         <div className={styles.pageWrapper}>
             <Sidebar />
             <div className={styles.sidebarRight}>
-            <div className={styles.storeListWrapper}>
+              <div className={styles.storeListWrapper}>
                         <ul>
                             {
                                 storeList.map((store: StoreType, index: number) => (
@@ -225,21 +179,19 @@ import HqSalesPieChart1 from "../hq-sales-piechart-demo";
                                 ))
                             }
                         </ul>
-                    </div>
-                    <div className={styles.termListWrapper}>
-            {termList.map((term: TermType, index: number) => (
-              <li
-                key={index}
-                onClick={() => handleTermBtnClick(index)}
-                className={activeTermState[index] ? `${styles.active}` : `${styles.deactive}`}
-              >
-                {term.name}
-              </li>
-            ))}
-
+              </div>
+              <div className={styles.termListWrapper}>
+                  {termList.map((term: TermType, index: number) => (
+                    <li
+                      key={index}
+                      onClick={() => handleTermBtnClick(index)}
+                      className={activeTermState[index] ? `${styles.active}` : `${styles.deactive}`}
+                    >
+                      {term.name}
+                    </li>
+                  ))}
             <div className={styles.calendarInputBoxWrapper}>
-            <div className={styles.calendarInputBoxWrapper}>
-            <div className={styles.buttonContainer}>
+              <div className={styles.buttonContainer}>
               <span>
                 <button onClick={handle1WeekBtnClick}>1주일</button>
               </span>
@@ -250,76 +202,89 @@ import HqSalesPieChart1 from "../hq-sales-piechart-demo";
                 <button onClick={handle3MonthBtnClick}>3달</button>
               </span>
               <span>
-                <input type="text" value={startDate} onChange={handleStartDateChange} />
+                <input 
+                  type="text" 
+                  value={startDate} 
+                  placeholder="시작 날짜를 입력하세요" 
+                  onChange={handleStartDateChange} 
+                  />
               </span>
               <span>
-                <input type="text" value={endDate} onChange={handleEndDateChange} />
+                <input 
+                  type="text" 
+                  value={endDate} 
+                  placeholder="종료 날짜를 입력하세요" 
+                  onChange={handleEndDateChange} />
               </span>
+              <span>
+                <button onClick={handleTermBtnClick1}>기간별 검색</button>
+              </span>
+              <CSVDownloadButton
+                chartDate={chartDate}
+                storeId={storeId}
+                startDate={startDate}
+                endDate={endDate}
+              />
+              </div>
             </div>
-          </div>
-        </div>
+  
                 <div className={styles.chartContainer}>
-                    <HqSalesBarChart1
-                    chartDate={chartDate}
-                    storeId={storeId}
-                    startDate={startDate}
-                    endDate={endDate}
-                    />
-                <div className={styles.chartContainer}>
+
+                  <div className={styles.chartWrapper1}>
                     <HqSalesBarChart1
                       chartDate={chartDate}
                       storeId={storeId}
                       startDate={startDate}
                       endDate={endDate}
                     />
-
-                <div className={styles.settlementDataListWrapper}>
-
-
+                  </div>
+                  <div className={styles.twowrapper}>
+                  <div className={styles.settlementDataListWrapper}>
                     <div className={styles.orderListTableContainer}>
-                    <div className={styles.settlementDataListTitle}>매출 목록</div>
-                    <table className={styles.orderListTable}>
-                        <thead className={styles.orderListHead}>
+                      <div className={styles.settlementDataListTitle}>매출 목록</div>
+                        <table className={styles.orderListTable}>
+                          <thead className={styles.orderListHead}>
                             <tr>
-                                <th className={styles.settlementDate}>정산일자</th>
-                                <th>지점명</th>
-                                <th>수수료</th>
-                                <th>정산금액</th>
-                                <th>총원가</th>
-                                <th>영업이익</th>
+                              <th className={styles.settlementDate}>정산일자</th>
+                              <th>지점명</th>
+                              <th>수수료</th>
+                              <th>정산금액</th>
+                              <th>총원가</th>
+                              <th>영업이익</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                settlementDataList.map((item, index) => (
-                                    <tr key={index} className={styles.orderListBody}>
-                                        <td>{item.settlementDate}</td>
-                                        <td>{item.storeName}</td>
-                                        <td>{item.charge}</td>
-                                        <td>{item.settlementPrice}</td>
-                                        <td>{item.originPrice}</td>
-                                        <td>{item.profit}</td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
+                          </thead>
+                          <tbody>
+                            {settlementDataList.map((item, index) => (
+                              <tr key={index} className={styles.orderListBody}>
+                                <td>{item.settlementDate}</td>
+                                <td>{item.storeName}</td>
+                                <td>{item.charge}</td>
+                                <td>{item.settlementPrice}</td>
+                                <td>{item.originPrice}</td>
+                                <td>{item.profit}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+
+                  <div className={styles.chartContainer}>
+                    <div className={styles.chartWrapper1}>
+                      <HqSalesPieChart1
+                        chartDate={chartDate}
+                        startDate={startDate}
+                        endDate={endDate}
+                      />
+                    </div>
+                  </div>
+                  </div>
                 </div>
-                                <div className={styles.piechartcontainer}>
-                    <HqSalesPieChart1
-                    chartDate={chartDate}
-                    storeId={storeId}
-                    startDate={startDate}
-                    endDate={endDate}
-                    />
+                </div>
+                <div>
+
+                </div>
                     </div>
-                    </div>
-                    
-            </div>
-              </div>
-            </div>
-            </div>
-          </div>
-                
+                </div>
     );
 }

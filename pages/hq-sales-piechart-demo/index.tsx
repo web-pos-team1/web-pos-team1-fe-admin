@@ -11,7 +11,6 @@ interface ChartData {
 
 interface HqSalesBarChartProps {
     chartDate: string;
-    storeId: number;
     startDate: string;
     endDate: string;
 }
@@ -26,13 +25,14 @@ export default function HqSalesPieChart1(
 
         axios.get(urlTotal)
             .then((res) => {
-                console.log("HqSalesPieChart/useEffect()/res: ", res);
+                console.log("HqSalesPieChart1/useEffect()/res: ", res);
                 setChartData(res.data);
+                console.log("res 받았다" +props.chartDate+ props.startDate + props.endDate);
             })
             .catch((err) => {
-                console.log("HqSalesPieChart/useEffect()/err: ", err);
+                console.log("HqSalesPieChart1/useEffect()/err: ", err);
             });
-    }, [props.chartDate, props.storeId, props.startDate, props.endDate]);
+    }, [props.chartDate, props.startDate, props.endDate]);
 
     useEffect(() => {
         if (chartData && chartData.length > 0) {

@@ -44,7 +44,7 @@ const OrderList: NextPageWithLayout = () => {
     const [storeId, setStoreId] = useState<number>(0);
     const [startDate, setStartDate] = useState<string>('2023-06-09');
     const [endDate, setEndDate] = useState<string>('2023-06-16');
-    
+
     const [orderDataList, setOrderDataList] = useState<OrderDataType[]>([]);
     const [storeList, setStoreList] = useState<StoreType[]>([]); // ['강남점', '광주신세계' ...]
     const [termList, setTermList] = useState<TermType[]>(initTermDataList);
