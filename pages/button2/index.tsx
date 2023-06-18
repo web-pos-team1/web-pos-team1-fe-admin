@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { mapToBE } from "@/globalFunction/mapToBE";
 import axios from "axios";
+import styles from './csvDownloadBtn.module.css';
 
 interface CSVDownloadProps {
   chartDate: string;
@@ -17,7 +18,7 @@ const CSVDownloadButton: React.FC<CSVDownloadProps> = (props) => {
 
     try {
       const fileName = `${props.chartDate}_sale_report`;
-      const url = `http://localhost:8080/api/v1/hq/sale-management/list-csv/date=${props.chartDate}/storeId=${props.storeId}/startDate=${props.startDate}/endDate=${props.endDate}`;
+      const url = `http://localhost:8080/api/v1/hq/sale-management/list-csv/date=${props.chartDate}/storeId=0/startDate=0/endDate=0`;
       const response = await axios.get(url, {
         responseType: "blob",
       });
@@ -38,9 +39,9 @@ const CSVDownloadButton: React.FC<CSVDownloadProps> = (props) => {
 
   return (
     <div>
-      <button name="csv" onClick={downloadFile} disabled={isDownloading}>
+      <div onClick={downloadFile} className={isDownloading ? styles.csvDownloadingBtn : styles.csvDownloadBtn}>
         {isDownloading ? '다운로드 중...' : 'CSV'}
-      </button>
+      </div>
     </div>
   );
 }

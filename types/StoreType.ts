@@ -1,4 +1,5 @@
 export interface StoreType {
     id: number,
-    storeName: string
+    storeName: string,
+    storeId: number
 }

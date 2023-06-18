@@ -234,3 +234,25 @@ li.deactive {
     color: white
     
 }
+
+.searchBtn {
+    background-color: #E0C798;
+    color: #4C304F;
+    text-align: center;
+    width: 30px;
+    /* margin-left: 20px; */
+    margin-right: 0px;
+    border-right: 0px;
+    border-radius: 20px;
+
+    list-style: none;
+    font-weight: bold;
+    /* justify-content: space-around; */
+    justify-content: center;
+    align-items: center;
+    width: 115px;
+    height: 43px;
+    border-radius: 20px;
+    display: flex;
+
+}

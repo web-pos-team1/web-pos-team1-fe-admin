@@ -179,3 +179,21 @@ li.deactive {
 .calendarIcon {
     margin-bottom: 5px;
 }
+
+.searchBtn {
+    background-color: #E0C798;
+    color: #4C304F;
+    text-align: center;
+    width: 200px;
+    height: 30px;
+    /* height: 40px; */
+    /* margin-left: 20px; */
+    margin-right: 0px;
+    border-right: 0px;
+    border-radius: 20px;
+    margin-left: 60px;
+    padding-right: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

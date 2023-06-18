@@ -1,4 +1,5 @@
 export interface TermType {
     id: number,
-    name: string
+    name: string,
+    engName: string
 }

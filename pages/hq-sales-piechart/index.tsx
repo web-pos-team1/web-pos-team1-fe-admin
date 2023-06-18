@@ -11,11 +11,13 @@ interface ChartData {
 
 export default function HqSalesPieChart(
     props: {
-        date?: string
+        chartDate: string,
+        startDate: string,
+        endDate: string
     }
 ) {
     const [chartData, setChartData] = useState<ChartData[]>([]);
-    const [date, setDate] = useState<string>('1week'); //
+    const [date, setDate] = useState<string>(props.chartDate); //
     const [startDate, setStartDate] = useState<string>('0'); // 2023-12-20
     const [endDate, setEndDate] = useState<string>('0');
     const [inputStartDate, setInputStartDate] = useState<string>('0');
@@ -83,7 +85,9 @@ export default function HqSalesPieChart(
 
     useEffect(() => {
         const updateChart = () => {
-            const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${inputStartDate}/endDate=${inputEndDate}`);
+            // const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=${inputStartDate}/endDate=${inputEndDate}`);
+            const url = mapToBE(`/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=0/endDate=0`);
+            // const url = `http://localhost:8080/api/v1/hq/sale-management/pie-chart/date=${date}/startDate=0/endDate=0`;
             axios.get(url)
             .then((res: any) => {
                 console.log("res: ", res);
@@ -112,6 +116,21 @@ export default function HqSalesPieChart(
     
                             ],
                             backgroundColor: [
+                                // <chatGPT 추천 시작>
+                                "#375a7f",
+                                "#458c87",
+                                "#669966",
+                                "#7f7f7f",
+                                "#8c8c52",
+                                "#93648d",
+                                "#a36f40",
+                                "#b85c3d",
+                                "#c6578c",
+                                "#d26b43",
+                                "#68192D",
+                                "#e59e6d",
+                                "#f07d9e",
+                                // <chatGPT 추천 끝>
                                 // "#000000",
                                 // "#3a9999",
                                 // "#2d2d6e",
@@ -125,21 +144,21 @@ export default function HqSalesPieChart(
                                 // "#007f00",
                                 // "#003f00",
                                 // "#bfbfbf",
-                                //
-                                "#a6c4c9",
-"#b8d1cc",
-"#c8dece",
-"#d8ebd0",
-"#e8f8d2",
-"#f5fbd3",
-"#f5e9d4",
-"#f4d6d5",
-"#f4c4d6",
-"#f3b2d7",
-"#f2a0d8",
-"#f18ed9",
-"#f07cd9",
-                                //
+                                // <분홍분홍 시작>
+                                // "#a6c4c9",
+                                // "#b8d1cc",
+                                // "#c8dece",
+                                // "#d8ebd0",
+                                // "#e8f8d2",
+                                // "#f5fbd3",
+                                // "#f5e9d4",
+                                // "#f4d6d5",
+                                // "#f4c4d6",
+                                // "#f3b2d7",
+                                // "#f2a0d8",
+                                // "#f18ed9",
+                                // "#f07cd9",
+                                // <분홍분홍 끝>
                                 // "#707070",
                                 // "#488f64",
                                 // "#32327a",
@@ -178,14 +197,17 @@ export default function HqSalesPieChart(
                             }],
                             yAxes: [{
                                 display: false,
-                            }],
+                            }], 
+                        },
+                        legend: {
+                            position: "right",
                         }
                     },
                 })
             })
             };
         updateChart();
-    }, [chartData]);
+    }, [props.chartDate]);
 
     return (
         <>

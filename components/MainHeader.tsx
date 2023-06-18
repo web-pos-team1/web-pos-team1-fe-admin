@@ -44,7 +44,7 @@ export default function MainHeader(props: {
                 <li className={style.ssg}>
                     신세계
                 </li>
-                <li className={style.name}>
+                <li className={indicateName.length <= 10 ? style.name : style.nameOver10}>
                     {indicateName}
                 </li>
                 

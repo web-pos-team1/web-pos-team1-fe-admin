@@ -10,19 +10,23 @@ import Image from "next/image";
 import { mapToBE } from "@/globalFunction/mapToBE";
 import { StoreType } from "@/types/StoreType";
 import { TermType } from "@/types/TermType";
+import CSVDownloadButton from "../button2";
 
 const initTermDataList = [
     {
         "id": 1,
         "name": "1주일",
+        "engName": "1week"
     },
     {
         "id": 2,
         "name": "1개월",
+        "engName": "1month"
     },
     {
         "id": 3,
         "name": "3개월",
+        "engName": "3month"
     }
 ];
 
@@ -37,6 +41,8 @@ export default function HqSales2(
     const [termList, setTermList] = useState<TermType[]>(initTermDataList);
     const [activeStoreState, setActiveStoreState] = useState<boolean[]>([]);    
     const [activeTermState, setActiveTermState] = useState<boolean[]>([]);
+    const [termEngName, setTermEngName] = useState<string>('1week');
+    const [selectedStoreName, setSelectedStoreName] = useState<string>('전체');
 
     interface SettlementDataType {
         settlementDate: string, // 정산일자
@@ -73,7 +79,7 @@ export default function HqSales2(
     //     .catch((err: any) => console.log("err: ", err));
     // }, [])
 
-    const handleStoreBtnClick = (id: number) => {
+    const handleStoreBtnClick = (id: number, storeName: string, storeId: number) => {
         let selectedStoreId = 0;
         for (let i = 0; i < activeStoreState.length; i++) {
             if (id === i) {
@@ -91,10 +97,12 @@ export default function HqSales2(
         // })
         
         setActiveStoreState([...activeStoreState]);
-        // **axios 호출 다시**
+        setSelectedStoreName(storeName);
+        setStoreId(storeId);
+        // **axios 호출 다시**    
     }
 
-    const handleTermBtnClick = (id: number) => {
+    const handleTermBtnClick = (id: number, termEngName: string) => {
         let selectedTermId = 0;
         for (let i = 0; i < activeTermState.length; i++) {
             if (id === i) {
@@ -105,14 +113,61 @@ export default function HqSales2(
             }
         }
         setActiveTermState([...activeTermState]);
+        setTermEngName(termEngName);
 
+    }
+    const getDateStr = (rawDate: Date) => {
+        let year = rawDate.getFullYear();
+        var month = (rawDate.getMonth() + 1);
+        var day = rawDate.getDate();
+
+        let final_month = (month < 10) ? "0" + String(month) : month;
+        let final_day = (day < 10) ? "0" + String(day) : day;
+
+        return  year + '-' + final_month + '-' + final_day ;
+    }
+
+    function today() {
+        var d = new Date();
+        return getDateStr(d);
+    }
+    function lastWeek() {
+        var d = new Date();
+        var dayOfMonth = d.getDate();
+        d.setDate(dayOfMonth - 7);
+        return getDateStr(d);
+    }
+      
+    function lastMonth() {
+        var d = new Date();
+        var monthOfYear = d.getMonth();
+        d.setMonth(monthOfYear - 1);
+        return getDateStr(d);
+    }
+
+    function lastThreedMonth() {
+        var d = new Date();
+        var monthOfYear = d.getMonth();
+        d.setMonth(monthOfYear - 3);
+        return getDateStr(d);
     }
 
     useEffect(() => {
+        console.log("call useEffect()! with [storeName]: ", selectedStoreName, " [termEngName]: ", termEngName );
+        if (termEngName === '1week') {
+            setStartDate(lastWeek());
+            setEndDate(today());
+        } else if (termEngName === '1month') {
+            setStartDate(lastMonth);
+            setEndDate(today());
+        } else if (termEngName === '3month') {
+            setStartDate(lastThreedMonth());
+            setEndDate(today);
+        }
         const fetchData = async () => {
           try {
-            // const url = 'http://localhost:8080/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0';
-            const url = mapToBE(`/api/v1/hq/sale-management/list/date=1week/storeId=0/startDate=0/endDate=0`);
+            // const url = `http://localhost:8080/api/v1/hq/sale-management/list/date=${termEngName}/storeId=${storeId}/startDate=0/endDate=0`;
+            const url = mapToBE(`/api/v1/hq/sale-management/list/date=${termEngName}/storeId=${startDate}/startDate=0/endDate=0`);
             const response = await axios.get(url);
             setSettlementDataList(response.data);
           } catch (error) {
@@ -120,13 +175,12 @@ export default function HqSales2(
           }
         };
 
-        fetchData();
-
         const url_storeList = mapToBE(`/api/v1/manager/store-name`);
+        // const url_storeList = `http://localhost:8080/api/v1/manager/store-name`;
         axios.get(url_storeList)
         .then((res) => {
             console.log("res2: ", res);
-            let resDataList = [{'id': 0, 'storeName': '전체'}, {'id': 9, 'storeName': '본점'}];
+            let resDataList = [{'id': 0, 'storeName': '전체', 'storeId': 0}, {'id': 1, 'storeName': '본점', 'storeId': 9}];
             for (let s = 0; s < res.data.length; s++) {
                 if (res.data[s].storeName === '본점'){
                     continue;
@@ -134,25 +188,38 @@ export default function HqSales2(
                 resDataList.push(res.data[s]);
             }
             setStoreList(resDataList);
-            let aStoreStateList: boolean[] = [true];
-            for (let i = 0; i < res.data.length; i++) {
-                aStoreStateList.push(false);
+            if (activeStoreState.length < 1) {
+                let aStoreStateList: boolean[] = [];
+                if (selectedStoreName === '전체') {
+                    aStoreStateList.push(true);
+                }
+                for (let i = 0; i < res.data.length; i++) {
+                    if (res.data[i].storeName === selectedStoreName) {
+                        aStoreStateList.push(true);
+                    } else {
+                        aStoreStateList.push(false);
+                    }
                 setActiveStoreState([...aStoreStateList]);
+            }
+            
+            }
+            if (activeTermState.length < 1) {
+                let aTermStateList: boolean[] = [];
+                for (let i = 0; i < initTermDataList.length; i++) {
+                    // 처음엔 "1주일"이 기본선택되도록
+                    if (initTermDataList[i].engName === termEngName) {
+                        aTermStateList.push(true);
+                    } else {
+                        aTermStateList.push(false);
+                    }
+                    setActiveTermState([...aTermStateList]);
+                }
             }
         })
 
-        
-        let aTermStateList: boolean[] = [];
-        for (let i = 0; i < initTermDataList.length; i++) {
-            // 처음엔 "1주일"이 기본선택되도록
-            if (i===0) {
-                aTermStateList.push(true);
-            } else {
-                aTermStateList.push(false);
-            }
-            setActiveTermState([...aTermStateList]);
-        }
-      }, []);
+
+        fetchData();
+      }, [termEngName, selectedStoreName, storeId]);
 
     return (
         <div className={styles.pageWrapper}>
@@ -167,7 +234,7 @@ export default function HqSales2(
                         <ul>
                             {
                                 storeList.map((store: StoreType, index: number) => (
-                                    <li key={index} onClick={() => handleStoreBtnClick(index)} className={activeStoreState[index] ? `${styles.active}` : `${styles.deactive}`}>
+                                    <li key={index} onClick={() => handleStoreBtnClick(index, store.storeName, store.storeId)} className={activeStoreState[index] ? `${styles.active}` : `${styles.deactive}`}>
                                         {store.storeName}
                                     </li>
                                 ))
@@ -178,7 +245,7 @@ export default function HqSales2(
                 <ul>
                     {
                         termList.map((term: TermType, index: number) => (
-                            <li key={index} onClick={() => handleTermBtnClick(index)} className={activeTermState[index] ? `${styles.active}` : `${styles.deactive}`}>
+                            <li key={index} onClick={() => handleTermBtnClick(index, term.engName)} className={activeTermState[index] ? `${styles.active}` : `${styles.deactive}`}>
                                 {term.name}
                             </li>
                         ))
@@ -188,7 +255,7 @@ export default function HqSales2(
                     <li className={styles.calendarStartDateInputBox}>
                             <Image
                             src="/images/calendar.png"
-                            alt="cancel"
+                            alt="calendar"
                             className={styles.calendarIcon}
                             width={20}
                             height={20}
@@ -201,25 +268,37 @@ export default function HqSales2(
                     <li className={styles.calendarEndDateInputBox}>
                     <Image
                             src="/images/calendar.png"
-                            alt="cancel"
+                            alt="calendar"
                             className={styles.calendarIcon}
                             width={20}
                             height={20}
                         />
                         <input type="text" size={10} value={endDate} onChange={handleEndDateChange} />
                     </li>
+                    <li>
+                        <div className={styles.searchBtn}>
+                            검색
+                        </div>
+                    </li>
+                    <li>
+                    <CSVDownloadButton
+                            chartDate={termEngName}
+                            storeId={storeId}
+                            startDate={startDate}
+                            endDate={endDate}
+                        />
+                    </li>
                 </ul>
                 </div>
             <div className={styles.chartContainer}>
                 <HqSalesBarChart 
-                    date={date}
+                    chartDate={termEngName}
                     storeId={storeId}
                     startDate={startDate}
                     endDate={endDate}
                 />
                 <HqSalesPieChart 
-                    date={date}
-                    storeId={storeId}
+                    chartDate={termEngName}
                     startDate={startDate}
                     endDate={endDate}
                 />

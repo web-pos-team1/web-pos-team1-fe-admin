@@ -233,7 +233,7 @@ const OrderList: NextPageWithLayout = () => {
                             <li className={styles.calendarStartDateInputBox}>
                                     <Image
                                     src="/images/calendar.png"
-                                    alt="cancel"
+                                    alt="calendar"
                                     className={styles.calendarIcon}
                                     width={20}
                                     height={20}
@@ -246,13 +246,18 @@ const OrderList: NextPageWithLayout = () => {
                             <li className={styles.calendarEndDateInputBox}>
                             <Image
                                     src="/images/calendar.png"
-                                    alt="cancel"
+                                    alt="calendar"
                                     className={styles.calendarIcon}
                                     width={20}
                                     height={20}
                                 />
                                 <input type="text" size={10} value={endDate} onChange={handleEndDateChange} />
                             </li>
+                            {/* <li>
+                                <div className={styles.searchBtn}>
+                                    검색
+                                </div>
+                            </li> */}
                         </ul>
                     </div>
                     <div className={styles.settlementDataListWrapper}>

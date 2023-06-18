@@ -25,13 +25,14 @@ export default function HqSalesBarChart(
     const [startDate, setStartDate] = useState<string>('0'); // 2023-12-20
     const [endDate, setEndDate] = useState<string>('0');
     const [storeId, setStoreId] = useState<number>(0);  
-    const [date, setDate] = useState<string>('1month'); // 1week, 1month, 3month  
+    const [date, setDate] = useState<string>(props.chartDate); // 1week, 1month, 3month  
     
     const urlTotal = mapToBE(`/api/v1/hq/sale-management/storeId=${props.storeId}/date=${props.chartDate}/startDate=${props.startDate}/endDate=${props.endDate}`);
+    // const urlTotal = `http://localhost:8080/api/v1/hq/sale-management/storeId=${props.storeId}/date=${props.chartDate}/startDate=${props.startDate}/endDate=${props.endDate}`;
     
     // 실행되지 않았던 이유 : 클릭을 해야 실행되는 매서드만 있어서
     const handle1WeekBtnClick = () => {
-        // const url = mapToBE(`/api/v1/hq/sale-management/storeId=${storeId}/date=${date}/startDate=${startDate}/endDate=${endDate}`);
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=${storeId}/date=${date}/startDate=${startDate}/endDate=${endDate}`);
         axios.get(urlTotal)
         .then((res) => {
             console.log("HqSalesPieChart/useEffect()/res: ", res);
@@ -98,7 +99,9 @@ export default function HqSalesBarChart(
 
     useEffect(() => {
 
-        const url = mapToBE(`/api/v1/hq/sale-management/storeId=2/date=${date}/startDate=${inputStartDate}/endDate=${inputEndDate}`);
+        // const url = mapToBE(`/api/v1/hq/sale-management/storeId=0/date=${props.chartDate}/startDate=${props.startDate}/endDate=${props.endDate}`);
+        const url = mapToBE(`/api/v1/hq/sale-management/storeId=${props.storeId}/date=${props.chartDate}/startDate=0/endDate=0`);
+        // const url = `http://localhost:8080/api/v1/hq/sale-management/storeId=${props.storeId}/date=${props.chartDate}/startDate=0/endDate=0`;
         axios.get(url)
         .then((res: any) => {
             console.log("res: ", res);
@@ -124,7 +127,7 @@ export default function HqSalesBarChart(
                 legend: {
                     display: false
                 },
-                animation: false,
+                // animation: false,
                 // label:false,
                 // hover: {
                 //     mode: 'label'
@@ -138,15 +141,15 @@ export default function HqSalesBarChart(
                             ticks: {
                                 beginAtZero: true,
                                 steps: 1000000, // 1551
-                                stepValue: 100000,
-                                max: 30000000
+                                stepValue: 50000,
+                                max: 20000000
                             }
                         }]
                 }
             }
         })
         });
-    }, [barData]) // 원래 []이었는데 []안에 barData 넣으니까 해결됨
+    }, [barData, props.storeId, props.chartDate]) // 원래 []이었는데 []안에 barData 넣으니까 해결됨
     return (
         <>
             <div className={styles.chartWrapper}>
