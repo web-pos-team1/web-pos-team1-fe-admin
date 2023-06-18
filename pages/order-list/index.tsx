@@ -80,7 +80,7 @@ const OrderList: NextPageWithLayout = () => {
     const [storeId, setStoreId] = useState<number>(0);
     const [startDate, setStartDate] = useState<string>('2023-06-09');
     const [endDate, setEndDate] = useState<string>('2023-06-16');
-ops
+
 
     const [orderDataList, setOrderDataList] = useState<OrderDataType[]>([]);
     const [storeList, setStoreList] = useState<StoreType[]>([]); // ['강남점', '광주신세계' ...]
@@ -175,11 +175,9 @@ ops
         if(ref.current) {
             ref.current.focus();
         }
-<<<<<<< HEAD
+
         const url = mapToBE(`/api/v1/hq/sale-management/list-orders/date=${date}/storeId=${storeId}/startDate=0/endDate=0`);
-=======
-        const url = mapToBE(`/api/v1/hq/sale-management/list-orders/date=1week/storeId=${storeId}/startDate=${startDate}/endDate=${endDate}`);
->>>>>>> props
+
         // const url = `http://localhost:8080/api/v1/hq/sale-management/list-orders/date=${date}/storeId=${storeId}/startDate=${startDate}/endDate=${endDate}`;
         axios.get(url)
         .then((res) => {
