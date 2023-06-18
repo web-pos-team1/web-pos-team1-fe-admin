@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styles from './cancel-recipt.module.css';
+import styles from './cancel-receipt.module.css';
 import axios from "axios";
 import JsBarcode from "jsbarcode";
 import { mapToBE } from "@/globalFunction/mapToBE";
 import { useRouter } from "next/router";
-export default function Recipt() {
+export default function Receipt() {
 
   const [mUid, setMUid] = useState<string>('202306161014280201');
   const [orderDate, setOrderDate] = useState<string>('');
@@ -33,7 +33,10 @@ export default function Recipt() {
     // const url = mapToBE(`/api/v1/manager/orders-detail?merchantUid=${mUid}`);
     console.log("router.query.mUid: ", router.query.mUid);
     // const url = `http://localhost:8080/api/v1/manager/order-cancel2?merchantUid=${router.query.mUid}`;
-    const url = mapToBE(`/api/v1/manager/order-cancel2?merchantUid=${router.query.mUid}`);
+    
+    /* 취소된 주문의 영수증 조회 */
+    // const url = mapToBE(`/api/v1/manager/order-cancel2?merchantUid=${router.query.mUid}`);
+    const url = mapToBE(`/api/v1/manager/cancel-receipt?merchantUid=${router.query.mUid}`);
     setMUid(router.query.mUid);
     axios.get(url)
       .then((res) => {
@@ -95,8 +98,8 @@ export default function Recipt() {
       });
   }, [router.query]);
     return (
-        <div className={styles.reciptWrapper}>
-        <div className={styles.reciptContainer}>
+        <div className={styles.receiptWrapper}>
+        <div className={styles.receiptContainer}>
           <div className={styles.header}>
             <h1 className={styles.title}>SHINSEGAE</h1>
             {/* <div className={styles.barcode}>바코드 자리</div> */}

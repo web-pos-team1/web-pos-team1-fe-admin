@@ -126,8 +126,11 @@ export default function HqSales2(
         axios.get(url_storeList)
         .then((res) => {
             console.log("res2: ", res);
-            let resDataList = [{'id': 0, 'storeName': '전체'}];
+            let resDataList = [{'id': 0, 'storeName': '전체'}, {'id': 9, 'storeName': '본점'}];
             for (let s = 0; s < res.data.length; s++) {
+                if (res.data[s].storeName === '본점'){
+                    continue;
+                }
                 resDataList.push(res.data[s]);
             }
             setStoreList(resDataList);

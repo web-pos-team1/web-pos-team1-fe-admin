@@ -4,6 +4,8 @@ import style from "./CancelCheckAlertModal.module.css";
 import Image from 'next/image';
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { mapToBE } from "@/globalFunction/mapToBE";
+import axios from 'axios';
 
 export default function CancelCheckAlertModal(
     props: {
@@ -15,7 +17,7 @@ export default function CancelCheckAlertModal(
     const router = useRouter();
     if(!props.show) return null
     useEffect(() => {
-        router.push(`/cancel-recipt/${props.mUid}`);
+        // router.push(`/cancel-recipt/${props.mUid}`);
         return;
     }, [])
     return (
@@ -29,7 +31,7 @@ export default function CancelCheckAlertModal(
                         <Image
                             src="/images/checkPurple.png"
                             alt="confirm"
-                            className={style.conirm}
+                            className={style.confirm}
                             width={28}
                             height={28}
                         />

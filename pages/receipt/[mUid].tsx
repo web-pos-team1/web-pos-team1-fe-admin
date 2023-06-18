@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styles from './recipt.module.css';
+import styles from './receipt.module.css';
 import axios from "axios";
 import JsBarcode from "jsbarcode";
 import { mapToBE } from "@/globalFunction/mapToBE";
 import { useRouter } from "next/router";
-export default function Recipt() {
+export default function Receipt() {
   const [mUid, setMUid] = useState<string>('202306141120440201');
   const [orderDate, setOrderDate] = useState<string>('');
   const [orderSerialNumber, setOrderSerialNumber] = useState<string>('');
@@ -80,8 +80,8 @@ export default function Recipt() {
       });
   }, [router.query.mUid]);
     return (
-        <div className={styles.reciptWrapper}>
-        <div className={styles.reciptContainer}>
+        <div className={styles.receiptWrapper}>
+        <div className={styles.receiptContainer}>
           <div className={styles.header}>
             <h1 className={styles.title}>SHINSEGAE</h1>
             {/* <div className={styles.barcode}>바코드 자리</div> */}

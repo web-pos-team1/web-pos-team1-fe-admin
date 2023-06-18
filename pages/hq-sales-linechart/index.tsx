@@ -110,11 +110,13 @@ export default function HqSalesBarChart(
                 datasets: [{
                     data:  res.data.map((data: any) => data.settlementDaySettlementPrice),// barData.map(data => data.settlementDaySettlementPrice),
                     label: '매출',
-                    borderColor: "rgb(109, 253, 181)",
-                    backgroundColor: "rgb(109, 253, 181,0.5)",
+                    // borderColor: "rgb(109, 253, 181)",
+                    // borderColor: "rgb(76, 48, 79, 181)",
+                    borderColor: "rgb(76, 48, 79)",
+                    // backgroundColor: "rgb(109, 253, 181, 0.5)",
+                    backgroundColor: "rgb(76, 48, 79, 0.5)",
                     borderWidth: 2
                 }]
-
             },
             options: {
                 responsive: true, // 기존에 원래 있던 것

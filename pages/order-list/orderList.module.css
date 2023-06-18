@@ -41,11 +41,13 @@
 li.active {
     background-color: #4C304F;
     color: white;
+    font-weight: bold;
 }
 
 li.deactive {
-    background-color: #56565B;
-    color: gray;
+    background-color: #D4D8DB;
+    color: #4C304F;
+    font-weight: bold;
 }
 
 .storeListWrapper {
