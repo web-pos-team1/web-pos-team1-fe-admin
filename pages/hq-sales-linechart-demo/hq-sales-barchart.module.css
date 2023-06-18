@@ -1,11 +1,12 @@
 .chartWrapper {
     margin-left: 0px;
     margin-right: 0px; 
-    height: 800px; 
+    height: 400px; 
     width: 800px;
     padding-right: 20px;
     padding-top: 20px;
     padding-bottom: 30px;
+    flex-direction: column;
     /* display: flex; */
     /* background-color: #FFFFFF; */
 }
