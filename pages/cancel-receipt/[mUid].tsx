@@ -6,7 +6,7 @@ import { mapToBE } from "@/globalFunction/mapToBE";
 import { useRouter } from "next/router";
 export default function Receipt() {
 
-  const [mUid, setMUid] = useState<string>('202306161014280201');
+  const [mUid, setMUid] = useState<string>('');
   const [orderDate, setOrderDate] = useState<string>('');
   const [cancelDate, setCancelDate] = useState<string>('');
   const [orderSerialNumber, setOrderSerialNumber] = useState<string>('');
@@ -55,6 +55,7 @@ export default function Receipt() {
            pointUsePrice,
            cancelDate
            } = res.data;
+        console.log("cancel-receipt/res: ", res);
         console.log("[before]orderDate: ", orderDate);
         // 2023-06-13T10:36:54.415664
         const orderDateList = orderDate.split('T');

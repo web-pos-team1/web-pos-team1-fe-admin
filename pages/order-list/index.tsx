@@ -42,8 +42,8 @@ const OrderList: NextPageWithLayout = () => {
 
     const [date, setDate] = useState<string>('1week'); // 1week, 1month, 3month, term(기간별)
     const [storeId, setStoreId] = useState<number>(0);
-    const [startDate, setStartDate] = useState<string>('2023-06-09');
-    const [endDate, setEndDate] = useState<string>('2023-06-16');
+    const [startDate, setStartDate] = useState<string>('2023-06-11');
+    const [endDate, setEndDate] = useState<string>('2023-06-18');
 
     const [orderDataList, setOrderDataList] = useState<OrderDataType[]>([]);
     const [storeList, setStoreList] = useState<StoreType[]>([]); // ['강남점', '광주신세계' ...]
