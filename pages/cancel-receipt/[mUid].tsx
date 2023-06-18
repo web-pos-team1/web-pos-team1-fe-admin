@@ -151,7 +151,7 @@ export default function Receipt() {
                 <td></td>
                 <td className={styles.coupon}>
                   <span>{
-                          couponUsePrice === 0 ? 0 : -couponUsePrice
+                          couponUsePrice === 0 ? 0 : couponUsePrice
                         }
                   </span>
                 </td>
@@ -162,7 +162,7 @@ export default function Receipt() {
                 <td className={styles.coupon}>
                   <span>
                     {
-                      pointUsePrice === 0 ? 0 : -pointUsePrice
+                      pointUsePrice === 0 ? 0 : pointUsePrice
                     }
                   </span>
                 </td>
